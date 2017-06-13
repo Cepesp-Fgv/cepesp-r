@@ -17,6 +17,8 @@ df <- votes(year = 2014,regional_agregation=3, political_aggregation=2, position
 ```
 
 
+### Parametros
+
 | Agregação Regional        | Número |
 | ------------------------- |:------:|
 | Brasil                    |   0    |
