@@ -13,16 +13,20 @@
 #   Check Package:             'Cmd + Shift + E'
 #   Test Package:              'Cmd + Shift + T'
 
-vote <- function(year=2014, uf="all", regional_aggregation=5,political_aggregation=2, position=1,cached=FALSE) {
 
-  url <- "http://api.cepesp.io/api/consulta/tse"
+url <- "http://127.0.0.1:5000/api/consulta/tse"
 
-  vars <- list("UF","ANO_ELEICAO","CODIGO_MUNICIPIO","NOME_MUNICIPIO","NOME_URNA_CANDIDATO","NUMERO_CANDIDATO","NUMERO_PARTIDO","SIGLA_PARTIDO","DESC_SIT_TOT_TURNO","QTDE_VOTOS")
-  names(vars) <- rep("selected_columns[]",length(vars))
-  filter <- list("columns[0][name]"="UF","columns[0][search][value]"=uf)
 
-  consulta <- append(append(list(anos=year,agregacao_regional=regional_aggregation,agregacao_politica=political_aggregation,cargo=position),vars),filter)
-  resp <- GET(url, query=consulta, cache=cached)
+vote <- function(year=2014, uf="SE", regional_aggregation=5,political_aggregation=2, position=1,cached=FALSE, columns_list=list()) {
+
+  if(length(columns_list) == 0) {
+    columns_list <- columns(regional_aggregation,political_aggregation)
+  }else{
+    test_columns(regional_aggregation,political_aggregation,columns_list)
+  }
+  names(columns_list) <- rep("selected_columns[]",length(columns_list))
+  consulta <- append(list(anos=year,agregacao_regional=regional_aggregation,agregacao_politica=political_aggregation,cargo=position),columns_list)
+  resp <- GET(url, query=consulta)
 
   return(content(resp))
 }
