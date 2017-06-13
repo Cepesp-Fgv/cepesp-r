@@ -14,7 +14,7 @@
 #   Test Package:              'Cmd + Shift + T'
 
 
-url <- "http://127.0.0.1:5000/api/consulta/tse"
+url <- "http://api.cepesp.io/api/consulta/tse"
 
 
 votes <- function(year=2014, uf="all", regional_aggregation=5,political_aggregation=2, position=1,cached=FALSE, columns_list=list()) {
