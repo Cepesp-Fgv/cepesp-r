@@ -12,10 +12,12 @@ devtools::install_github("Cepesp-Fgv/cepesp-r")
 
 ``` {.r}
 library(cepespR)
-df <- votes(year = 2002,regional_agregation=3, political_aggregation=2)
+df <- votes(year = 2014,regional_agregation=3, political_aggregation=2, position=1)
 
 ```
 
+
+### Parametros
 
 | Agregação Regional        | Número |
 | ------------------------- |:------:|
@@ -35,4 +37,17 @@ df <- votes(year = 2002,regional_agregation=3, political_aggregation=2)
 | Partido                   |   1    |
 | Candidato                 |   2    | 
 | Coligação                 |   3    | 
-| Consolidado da Eleição    |   4    | 
+| Consolidado da Eleição    |   4    |
+
+
+
+| Cargo(position)      | Número |
+| ------------------------- |:------:|
+| Presidente                |   1    |
+| Governador                |   3    | 
+| Senador                   |   5    |
+| Deputado Federal          |   6    | 
+| Deputado Estadual         |   7    | 
+| Prefeito                  |   11   |
+| Vereador                  |   13   |
+
