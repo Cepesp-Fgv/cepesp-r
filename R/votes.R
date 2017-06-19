@@ -32,6 +32,7 @@ votes <- function(year=2014, uf="all", regional_aggregation=5,political_aggregat
 }
 
 load_from_cache <- function(request){
+  print(hash_r(request))
   if(file.exists(hash_r(request)))
     return(read.csv(hash_r(request),sep=",",header = T,quote = "\""))
   else
@@ -45,7 +46,7 @@ save_on_cache <- function(request,data){
 }
 
 hash_r <- function(request,extension=".gz"){
-  return(paste0("static/cache/",do.call(paste, c(as.list(request), sep="")), extension))
+  return(paste0("static/cache/",digest(do.call(paste, c(as.list(request), sep=""))), extension))
 }
 
 build_request_parameters <- function(year, uf, regional_aggregation,political_aggregation, position, columns_list){

@@ -1,6 +1,5 @@
 test_columns <- function(regional_aggregation,political_aggregation,columns_list){
   for(name in columns_list){
-    print(name)
     if(name %in% columns(regional_aggregation,political_aggregation)){
     }
     else{
