@@ -12,7 +12,7 @@ devtools::install_github("Cepesp-Fgv/cepesp-r")
 
 ``` {.r}
 library(cepespR)
-df <- votes(year = 2014,regional_agregation=3, political_aggregation=2, position=1)
+df <- votes(year = 2014,regional_aggregation=3, political_aggregation=2, position=1)
 
 ```
 
