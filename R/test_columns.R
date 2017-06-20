@@ -7,8 +7,6 @@ test_columns <- function(regional_aggregation,political_aggregation,columns_list
     }
   }
   if(!"QTDE_VOTOS" %in% columns_list){
-
-    stop("QTDE_VOTOS is a mandatory column:"+toString(mylist))
-
+    stop("QTDE_VOTOS column is required")
   }
 }
