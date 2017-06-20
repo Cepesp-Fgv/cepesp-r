@@ -19,20 +19,18 @@ url <- "http://api.cepesp.io/api/consulta/tse"
 base_url <- "http://api.cepesp.io/"
 
 
-votes <- function(year=2014, uf="all", regional_aggregation=5,political_aggregation=2, position=1,cached=FALSE, columns_list=list()) {
-  consulta <- build_request_parameters(year, uf, regional_aggregation,political_aggregation, position, columns_list)
+votes <- function(year=2014, uf="all", regional_aggregation=5,political_aggregation=2, position=1,cached=FALSE, columns_list=list(),party=NULL) {
+  consulta <- build_request_parameters(year, uf, regional_aggregation,political_aggregation, position, columns_list, party)
   data = load_from_cache(consulta)
   if(is.null(data) || !cached){
     resp <- GET(url, query=consulta)
     data <- content(resp)
     save_on_cache(request = consulta,data)
   }
-  print(hash_r(consulta))
   return(data)
 }
 
 load_from_cache <- function(request){
-  print(hash_r(request))
   if(file.exists(hash_r(request)))
     return(read.csv(hash_r(request),sep=",",header = T,quote = "\""))
   else
@@ -49,7 +47,7 @@ hash_r <- function(request,extension=".gz"){
   return(paste0("static/cache/",digest(do.call(paste, c(as.list(request), sep=""))), extension))
 }
 
-build_request_parameters <- function(year, uf, regional_aggregation,political_aggregation, position, columns_list){
+build_request_parameters <- function(year, uf, regional_aggregation,political_aggregation, position, columns_list,party=NULL){
   if(length(columns_list) == 0) {
     columns_list <- columns(regional_aggregation,political_aggregation)
   }else{
@@ -59,9 +57,14 @@ build_request_parameters <- function(year, uf, regional_aggregation,political_ag
   consulta <- append(list(anos=year,agregacao_regional=regional_aggregation,agregacao_politica=political_aggregation,cargo=position),columns_list)
   if (uf!="all"){
     test_uf(uf)
-    filter <- list("columns[0][name]"="UF","columns[0][search][value]"=uf)
-    consulta = append(consulta,filter)
+    filter_uf <- list("columns[0][name]"="UF","columns[0][search][value]"=uf)
+    consulta = append(consulta,filter_uf)
   }
+  if (!is.null(party)){
+    filter_party <- list("columns[1][name]"="NUMERO_PARTIDO","columns[1][search][value]" = party)
+    consulta = append(consulta,filter_party)
+  }
+  print(consulta)
 
   return(consulta)
 }
