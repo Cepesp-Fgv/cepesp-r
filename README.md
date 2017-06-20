@@ -8,7 +8,7 @@ if (!require("devtools")) install.packages("devtools")
 devtools::install_github("Cepesp-Fgv/cepesp-r")
 ```
 
-### Como funciona
+### Como funciona.
 
 ``` {.r}
 library(cepespR)
