@@ -19,8 +19,8 @@ url <- "http://api.cepesp.io/api/consulta/tse"
 base_url <- "http://api.cepesp.io/"
 
 
-votes <- function(year=2014, uf="all", regional_aggregation=5,political_aggregation=2, position=1,cached=FALSE, columns_list=list(),party=NULL) {
-  consulta <- build_request_parameters(year, uf, regional_aggregation,political_aggregation, position, columns_list, party)
+votes <- function(year=2014, uf="all", regional_aggregation=5,political_aggregation=2, position=1,cached=FALSE, columns_list=list(),party=NULL,candidate_number=NULL) {
+  consulta <- build_request_parameters(year, uf, regional_aggregation,political_aggregation, position, columns_list, party,candidate_number)
   data = load_from_cache(consulta)
   if(is.null(data) || !cached){
     resp <- GET(url, query=consulta)
@@ -47,7 +47,9 @@ hash_r <- function(request,extension=".gz"){
   return(paste0("static/cache/",digest(do.call(paste, c(as.list(request), sep=""))), extension))
 }
 
-build_request_parameters <- function(year, uf, regional_aggregation,political_aggregation, position, columns_list,party=NULL){
+
+build_request_parameters <- function(year, uf, regional_aggregation,political_aggregation, position, columns_list,party=NULL,candidate_number=NULL){
+  assign("filter_index", 0, envir = .GlobalEnv)
   if(length(columns_list) == 0) {
     columns_list <- columns(regional_aggregation,political_aggregation)
   }else{
@@ -55,16 +57,24 @@ build_request_parameters <- function(year, uf, regional_aggregation,political_ag
   }
   names(columns_list) <- rep("selected_columns[]",length(columns_list))
   consulta <- append(list(anos=year,agregacao_regional=regional_aggregation,agregacao_politica=political_aggregation,cargo=position),columns_list)
-  if (uf!="all"){
-    test_uf(uf)
-    filter_uf <- list("columns[0][name]"="UF","columns[0][search][value]"=uf)
-    consulta = append(consulta,filter_uf)
-  }
-  if (!is.null(party)){
-    filter_party <- list("columns[1][name]"="NUMERO_PARTIDO","columns[1][search][value]" = party)
-    consulta = append(consulta,filter_party)
-  }
-  print(consulta)
+  consulta <- add_filter(consulta,columns_list,"NUMERO_PARTIDO",party)
+  consulta <- add_filter(consulta,columns_list,"UF",uf)
+  consulta <- add_filter(consulta,columns_list,"NUMERO_CANDIDATO",candidate_number)
+  return(consulta)
+}
+add_filter <- function(consulta,columns_list, column, value){
 
+  if(is.null(value) || value=="all")
+    return(consulta)
+
+  if(column %in% columns_list){
+    column_name <- paste0("columns[",filter_index,"][name]")
+    search_name <- paste0("columns[",filter_index,"][search][value]")
+    consulta <- append(consulta,setNames(column,column_name))
+    consulta <- append(consulta,setNames(value,search_name))
+    assign("filter_index", filter_index + 1, envir = .GlobalEnv)
+    return(consulta)
+  }
+  stop(paste(column , "column is required"))
   return(consulta)
 }
