@@ -133,7 +133,8 @@ columns <- function(regional_agregation=5, political_aggregation=2){
                  'NOME_MESO',
                  'CODIGO_MICRO',
                  'NOME_MICRO',
-                 'CODIGO_MUNICIPIO',
+                 'COD_MUN_TSE',
+                 'COD_MUN_IBGE',
                  'NOME_MUNICIPIO'))
   }else if(regional_agregation==7){
     columns <- c(columns,list('CODIGO_MACRO',
@@ -144,7 +145,8 @@ columns <- function(regional_agregation=5, political_aggregation=2){
                  'NOME_MESO',
                  'CODIGO_MICRO',
                  'NOME_MICRO',
-                 'CODIGO_MUNICIPIO',
+                 'COD_MUN_TSE',
+                 'COD_MUN_IBGE',
                  'NOME_MUNICIPIO',
                  'NUM_ZONA'))
   }else{
