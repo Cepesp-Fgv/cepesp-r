@@ -48,6 +48,7 @@ df <- votes(year = 2014,regional_aggregation=3, political_aggregation=2, positio
 | Senador                   |   5    |
 | Deputado Federal          |   6    | 
 | Deputado Estadual         |   7    | 
+| Deputado Distrital        |   8    | 
 | Prefeito                  |   11   |
 | Vereador                  |   13   |
 
