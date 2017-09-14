@@ -14,8 +14,8 @@
 #   Test Package:              'Cmd + Shift + T'
 
 
-#url <- "http://api.cepesp.io/api/consulta/tse"
-url <- "http://127.0.0.1:5000/api/consulta/tse"
+url <- "http://api.cepesp.io/api/consulta/tse"
+#url <- "http://127.0.0.1:5000/api/consulta/tse"
 base_url <- "http://api.cepesp.io/"
 
 
