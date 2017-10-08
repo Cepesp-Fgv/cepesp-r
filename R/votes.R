@@ -18,8 +18,7 @@
 #base_url <- "http://127.0.0.1:5000/api/consulta/"
 base_url <- "http://cepesp.io/api/consulta/"
 
-if(exists("hash_r", mode = "function"))
-  source("manage.R")
+source("manage.R")
 
 votes_url <- function(endpoint) {
   return(p(base_url, endpoint))
