@@ -14,50 +14,76 @@
 #   Test Package:              'Cmd + Shift + T'
 
 
-
-#base_url <- "http://127.0.0.1:5000/api/consulta/"
-base_url <- "http://cepesp.io/api/consulta/"
-
-source("manage.R")
-
-votes_url <- function(endpoint) {
-  return(p(base_url, endpoint))
-}
+source("query.R")
 
 
 ## Votação Seção [BETA]
 votes <- function(year=2014, uf="all", regional_aggregation=5, political_aggregation=2, position=1, cached=FALSE, columns_list=list(), party=NULL, candidate_number=NULL) {
-  consulta <- build_request_parameters(year, uf, regional_aggregation,political_aggregation, position, columns_list, party,candidate_number)
-  data = load_from_cache(consulta)
-  if(is.null(data) || !cached){
-    resp <- GET(votes_url("tse"), query=consulta)
-    data <- content(resp)
-    save_on_cache(request = consulta, data)
-  }
-  return(data)
+  return (
+    query(
+      endpoint="tse",
+      year=year,
+      uf=uf,
+      regional_aggregation=regional_aggregation,
+      political_aggregation=political_aggregation,
+      position=position,
+      columns_list=columns_list,
+      party=party,
+      candidate_number=candidate_number,
+      cached=cached
+    )
+  )
 }
 
 ## Votação Seção [BETA]
 votes_sec <- function(year=2014, uf="all", regional_aggregation=5, position=1, cached=FALSE, columns_list=list(), party=NULL, candidate_number=NULL) {
-  consulta <- build_request_parameters(year, uf, regional_aggregation,political_aggregation, position, columns_list, party,candidate_number)
-  data = load_from_cache(consulta)
-  if(is.null(data) || !cached){
-    resp <- GET(votes_url("votos"), query=consulta)
-    data <- content(resp)
-    save_on_cache(request = consulta, data)
-  }
-  return(data)
+  return (
+    query(
+      endpoint="votos",
+      year=year,
+      uf=uf,
+      regional_aggregation=regional_aggregation,
+      political_aggregation=NULL,
+      position=position,
+      columns_list=columns_list,
+      party=party,
+      candidate_number=candidate_number,
+      cached=cached
+    )
+  )
+}
+
+## Candidatos
+candidates <- function(year=2014, position=1, cached=FALSE, columns_list=list(), party=NULL, candidate_number=NULL) {
+  return (
+    query(
+      endpoint="candidatos",
+      year=year,
+      regional_aggregation=NULL,
+      political_aggregation=NULL,
+      position=position,
+      columns_list=columns_list,
+      party=party,
+      candidate_number=candidate_number,
+      cached=cached
+    )
+  )
 }
 
 ## Legendas
 political_parties <- function(year=2014, position=1, cached=FALSE, columns_list=list(), party=NULL, candidate_number=NULL) {
-  consulta <- build_request_parameters(year, uf, regional_aggregation,political_aggregation, position, columns_list, party,candidate_number)
-  data = load_from_cache(consulta)
-  if(is.null(data) || !cached){
-    resp <- GET(votes_url("cadidatos"), query=consulta)
-    data <- content(resp)
-    save_on_cache(request = consulta, data)
-  }
-  return(data)
+  return (
+    query(
+      endpoint="legendas",
+      year=year,
+      regional_aggregation=NULL,
+      political_aggregation=NULL,
+      position=position,
+      columns_list=columns_list,
+      party=party,
+      candidate_number=candidate_number,
+      cached=cached
+    )
+  )
 }
 

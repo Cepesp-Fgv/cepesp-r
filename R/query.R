@@ -1,3 +1,6 @@
+#base_url <- "http://127.0.0.1:5000/api/consulta/"
+base_url <- "http://cepesp.io/api/consulta/"
+
 load_from_cache <- function(request) {
   if(file.exists(hash_r(request)))
     return(read.csv(hash_r(request),sep=",",header = T,quote = "\""))
@@ -16,7 +19,7 @@ hash_r <- function(request,extension=".gz") {
 }
 
 
-build_request_parameters <- function(year, uf, regional_aggregation,political_aggregation, position, columns_list,party=NULL,candidate_number=NULL){
+build_request_parameters <- function(year, uf, regional_aggregation, political_aggregation, position, columns_list,party=NULL,candidate_number=NULL){
   assign("filter_index", 0, envir = .GlobalEnv)
   if(length(columns_list) == 0) {
     columns_list <- columns(regional_aggregation,political_aggregation)
@@ -30,7 +33,6 @@ build_request_parameters <- function(year, uf, regional_aggregation,political_ag
   consulta <- add_filter(consulta,columns_list,"NUMERO_CANDIDATO",candidate_number)
   return(consulta)
 }
-
 
 add_filter <- function(consulta, columns_list, column, value) {
 
@@ -47,4 +49,15 @@ add_filter <- function(consulta, columns_list, column, value) {
   }
   stop(paste(column, "column is required"))
   return(consulta)
+}
+
+query <- function(endpoint, year, uf, regional_aggregation, political_aggregation, position, columns_list, party=NULL, candidate_number=NULL, cached=FALSE) {
+  consulta <- build_request_parameters(year, uf, regional_aggregation, political_aggregation, position, columns_list, party,candidate_number)
+  data <- load_from_cache(consulta)
+  if(is.null(data) || !cached){
+    resp <- GET(votes_url(endpoint), query=consulta)
+    data <- content(resp)
+    save_on_cache(request = consulta, data)
+  }
+  return(data)
 }
