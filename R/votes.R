@@ -33,7 +33,7 @@ votes <- function(year=2014, uf="all", regional_aggregation=5, political_aggrega
   if(is.null(data) || !cached){
     resp <- GET(votes_url("tse"), query=consulta)
     data <- content(resp)
-    save_on_cache(request = consulta,data)
+    save_on_cache(request = consulta, data)
   }
   return(data)
 }
@@ -45,7 +45,7 @@ votes_sec <- function(year=2014, uf="all", regional_aggregation=5, position=1, c
   if(is.null(data) || !cached){
     resp <- GET(votes_url("votos"), query=consulta)
     data <- content(resp)
-    save_on_cache(request = consulta,data)
+    save_on_cache(request = consulta, data)
   }
   return(data)
 }
@@ -57,7 +57,7 @@ political_parties <- function(year=2014, position=1, cached=FALSE, columns_list=
   if(is.null(data) || !cached){
     resp <- GET(votes_url("cadidatos"), query=consulta)
     data <- content(resp)
-    save_on_cache(request = consulta,data)
+    save_on_cache(request = consulta, data)
   }
   return(data)
 }
