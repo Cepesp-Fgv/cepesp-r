@@ -12,7 +12,21 @@ devtools::install_github("Cepesp-Fgv/cepesp-r")
 
 ``` {.r}
 library(cepespR)
-df <- votes(year = 2014,regional_aggregation=3, political_aggregation=2, position=1)
+library(DT)
+
+# Votação Seção [BETA]
+df <- votes(year = 2014, regional_aggregation=2, political_aggregation=2, position=1)
+
+# Votação Seção
+df <- votes_sec(year = 2014, regional_aggregation=2, political_aggregation=2, position=3)
+
+# Candidatos
+df <- candidates(year = 2014, position=5)
+
+# Legendas
+df <- political_parties(year = 2010, position=6)
+
+datatable(df)
 
 ```
 
