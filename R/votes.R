@@ -17,16 +17,17 @@ source("R/columns.R")
 source("R/query.R")
 
 
-## Votação Seção [BETA]
-votes <- function(year=2014, uf="all", regional_aggregation=5, political_aggregation=2, position=1, cached=FALSE, columns_list=list(), party=NULL, candidate_number=NULL) {
+
+## Votação Seção ("por cargo") [BETA]
+cepespdata <- function(year=2014, state="all", regional_aggregation="Municipality", political_aggregation="Candidate", position="President", cached=FALSE, columns_list=list(), party=NULL, candidate_number=NULL) {
   return (
     query(
       endpoint="tse",
       year=year,
-      uf=uf,
-      regional_aggregation=regional_aggregation,
-      political_aggregation=political_aggregation,
-      position=position,
+      uf=state,
+      regional_aggregation=switch(regional_aggregation,"Brazil"=0,"Brasil"=0, "Macro"=1,"State"=2,"Estado"=2,"Meso"=4 ,"Micro"=5,"Municipality"=6,"Municipio"=6,"Municipality-Zone"=7,"Municipio-Zona"=7,"Zone"=8,"Zona"=8),
+      political_aggregation=switch(political_aggregation,"Party"=1,"Partido"=1,"Candidate"=2,"Candidato"=2,"Coalition"=3,"Coligacao"=3,"Consolidated"=4,"Consolidado"=4),
+      position=switch(position,"President"=1,"Presidente"=1,"Governor"=3,"Governador"=3,"Sentaor"=5,"Senador"=5,"Federal Deputy"=6,"Deputado Federal"=6,"State Deputy"=7,"Deputado Estadual"=7,"District Deputy"=8,"Deputado Districal"=8,"Mayor"=11,"Prefeito"=11,"Councillor"=13,"Vereador"=13),
       columns_list=columns_list,
       party=party,
       candidate_number=candidate_number,
@@ -36,16 +37,16 @@ votes <- function(year=2014, uf="all", regional_aggregation=5, political_aggrega
   )
 }
 
-## Votação Seção [BETA]
-votes_sec <- function(year=2014, regional_aggregation=5, position=1, cached=FALSE, columns_list=list(), uf="all", party=NULL, candidate_number=NULL) {
+## Votação Seção
+votes <- function(year=2014, regional_aggregation="Municipality", position="President", cached=FALSE, columns_list=list(), state="all", party=NULL, candidate_number=NULL) {
   return (
     query(
       endpoint="votos",
       year=year,
-      uf=uf,
-      regional_aggregation=regional_aggregation,
+      uf=state,
+      regional_aggregation=switch(regional_aggregation,"Brazil"=0,"Brasil"=0, "Macro"=1,"State"=2,"Estado"=2,"Meso"=4 ,"Micro"=5,"Municipality"=6,"Municipio"=6,"Municipality-Polling Station"=7,"Municipio-Zona"=7,"Polling Station"=8,"Zona"=8),
       political_aggregation=0,
-      position=position,
+      position=switch(position,"President"=1,"Presidente"=1,"Governor"=3,"Governador"=3,"Senator"=5,"Senador"=5,"Federal Deputy"=6,"Deputado Federal"=6,"State Deputy"=7,"Deputado Estadual"=7,"District Deputy"=8,"Deputado Districal"=8,"Mayor"=11,"Prefeito"=11,"Councillor"=13,"Vereador"=13),
       columns_list=columns_list,
       party=party,
       candidate_number=candidate_number,
@@ -56,15 +57,15 @@ votes_sec <- function(year=2014, regional_aggregation=5, position=1, cached=FALS
 }
 
 ## Candidatos
-candidates <- function(year=2014, position=1, cached=FALSE, columns_list=list(), uf="all", party=NULL, candidate_number=NULL) {
+candidates <- function(year=2014, position="President", cached=FALSE, columns_list=list(), state="all", party=NULL, candidate_number=NULL) {
   return (
     query(
       endpoint="candidatos",
       year=year,
-      uf=uf,
+      uf=state,
       regional_aggregation=0,
       political_aggregation=0,
-      position=position,
+      position=switch(position,"President"=1,"Presidente"=1,"Governor"=3,"Governador"=3,"Senator"=5,"Senador"=5,"Federal Deputy"=6,"Deputado Federal"=6,"State Deputy"=7,"Deputado Estadual"=7,"District Deputy"=8,"Deputado Districal"=8,"Mayor"=11,"Prefeito"=11,"Councillor"=13,"Vereador"=13),
       columns_list=columns_list,
       party=party,
       candidate_number=candidate_number,
@@ -75,15 +76,15 @@ candidates <- function(year=2014, position=1, cached=FALSE, columns_list=list(),
 }
 
 ## Legendas
-political_parties <- function(year=2014, position=1, cached=FALSE, columns_list=list(), uf="all", party=NULL) {
+coalitions <- function(year=2014, position="President", cached=FALSE, columns_list=list(), state="all", party=NULL) {
   return (
     query(
       endpoint="legendas",
       year=year,
-      uf=uf,
+      uf=state,
       regional_aggregation=0,
       political_aggregation=0,
-      position=position,
+      position=switch(position,"President"=1,"Presidente"=1,"Governor"=3,"Governador"=3,"Senator"=5,"Senador"=5,"Federal Deputy"=6,"Deputado Federal"=6,"State Deputy"=7,"Deputado Estadual"=7,"District Deputy"=8,"Deputado Districal"=8,"Mayor"=11,"Prefeito"=11,"Councillor"=13,"Vereador"=13),
       columns_list=columns_list,
       party=party,
       cached=cached,
@@ -91,4 +92,3 @@ political_parties <- function(year=2014, position=1, cached=FALSE, columns_list=
     )
   )
 }
-
