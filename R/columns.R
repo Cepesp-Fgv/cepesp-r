@@ -123,8 +123,7 @@ columns <- function(regional_agregation=5, political_aggregation=2){
       'UF',
       'NOME_UF',
       'CODIGO_MESO',
-      'NOME_MESO',
-      'CODIGO_MICRO'
+      'NOME_MESO'
     ))
   } else if(regional_agregation==5) {
     columns <- append(columns, list(
