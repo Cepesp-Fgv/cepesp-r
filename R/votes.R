@@ -17,6 +17,7 @@ source("R/columns.R")
 source("R/query.R")
 
 
+
 ## Votação Seção ("por cargo") [BETA]
 cepespdata <- function(year=2014, state="all", regional_aggregation="Municipality", political_aggregation="Candidate", position="President", cached=FALSE, columns_list=list(), party=NULL, candidate_number=NULL) {
   return (
