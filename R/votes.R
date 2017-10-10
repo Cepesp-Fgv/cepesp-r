@@ -18,7 +18,7 @@ source("R/query.R")
 
 
 ## Votação Seção ("por cargo") [BETA]
-cepespdata <- function(year=2014, state="all", regional_aggregation=5, political_aggregation=2, position=1, cached=FALSE, columns_list=list(), party=NULL, candidate_number=NULL) {
+cepespdata <- function(year=2014, state="all", regional_aggregation="Municipality", political_aggregation="Candidate", position="President", cached=FALSE, columns_list=list(), party=NULL, candidate_number=NULL) {
   return (
     query(
       endpoint="tse",
@@ -37,7 +37,7 @@ cepespdata <- function(year=2014, state="all", regional_aggregation=5, political
 }
 
 ## Votação Seção
-votes <- function(year=2014, regional_aggregation=5, position=1, cached=FALSE, columns_list=list(), state="all", party=NULL, candidate_number=NULL) {
+votes <- function(year=2014, regional_aggregation="Municipality", position="President", cached=FALSE, columns_list=list(), state="all", party=NULL, candidate_number=NULL) {
   return (
     query(
       endpoint="votos",
@@ -56,7 +56,7 @@ votes <- function(year=2014, regional_aggregation=5, position=1, cached=FALSE, c
 }
 
 ## Candidatos
-candidates <- function(year=2014, position=1, cached=FALSE, columns_list=list(), state="all", party=NULL, candidate_number=NULL) {
+candidates <- function(year=2014, position="President", cached=FALSE, columns_list=list(), state="all", party=NULL, candidate_number=NULL) {
   return (
     query(
       endpoint="candidatos",
@@ -75,7 +75,7 @@ candidates <- function(year=2014, position=1, cached=FALSE, columns_list=list(),
 }
 
 ## Legendas
-coalitions <- function(year=2014, position=1, cached=FALSE, columns_list=list(), state="all", party=NULL) {
+coalitions <- function(year=2014, position="President", cached=FALSE, columns_list=list(), state="all", party=NULL) {
   return (
     query(
       endpoint="legendas",
