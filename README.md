@@ -78,7 +78,7 @@ The same parameters can also be entered in Portuguese:
 Not all electoral contests occur in every year. Feasible requests are:
 
 | Ano      | Cargos Disponíveis (Descrição) | 
-| ------------------------- |:------| :------: |
+| ------------------------- |:------|
 | 1998                |   Presidente, Governador, Senador, Deputado Federal, Deputado Estadual, Deputado Distrital   | 
 | 2000                |   Prefeito, Vereador    | 
 | 2002                |   Presidente, Governador, Senador, Deputado Federal, Deputado Estadual, Deputado Distrital    |
