@@ -20,14 +20,17 @@ source("R/query.R")
 
 ## Votação Seção ("por cargo") [BETA]
 cepespdata <- function(year=2014, state="all", regional_aggregation="Municipality", political_aggregation="Candidate", position="President", cached=FALSE, columns_list=list(), party=NULL, candidate_number=NULL) {
+  regional_aggregation <- switch(regional_aggregation,"Brazil"=0,"Brasil"=0, "Macro"=1,"State"=2,"Estado"=2,"Meso"=4 ,"Micro"=5,"Municipality"=6,"Municipio"=6,"Municipality-Zone"=7,"Municipio-Zona"=7,"Zone"=8,"Zona"=8)
+  political_aggregation <- switch(political_aggregation,"Party"=1,"Partido"=1,"Candidate"=2,"Candidato"=2,"Coalition"=3,"Coligacao"=3,"Consolidated"=4,"Consolidado"=4)
+  position <- switch(position,"President"=1,"Presidente"=1,"Governor"=3,"Governador"=3,"Sentaor"=5,"Senador"=5,"Federal Deputy"=6,"Deputado Federal"=6,"State Deputy"=7,"Deputado Estadual"=7,"District Deputy"=8,"Deputado Districal"=8,"Mayor"=11,"Prefeito"=11,"Councillor"=13,"Vereador"=13)
   return (
     query(
       endpoint="tse",
       year=year,
       uf=state,
-      regional_aggregation=switch(regional_aggregation,"Brazil"=0,"Brasil"=0, "Macro"=1,"State"=2,"Estado"=2,"Meso"=4 ,"Micro"=5,"Municipality"=6,"Municipio"=6,"Municipality-Zone"=7,"Municipio-Zona"=7,"Zone"=8,"Zona"=8),
-      political_aggregation=switch(political_aggregation,"Party"=1,"Partido"=1,"Candidate"=2,"Candidato"=2,"Coalition"=3,"Coligacao"=3,"Consolidated"=4,"Consolidado"=4),
-      position=switch(position,"President"=1,"Presidente"=1,"Governor"=3,"Governador"=3,"Sentaor"=5,"Senador"=5,"Federal Deputy"=6,"Deputado Federal"=6,"State Deputy"=7,"Deputado Estadual"=7,"District Deputy"=8,"Deputado Districal"=8,"Mayor"=11,"Prefeito"=11,"Councillor"=13,"Vereador"=13),
+      regional_aggregation=regional_aggregation,
+      political_aggregation=political_aggregation,
+      position=position,
       columns_list=columns_list,
       party=party,
       candidate_number=candidate_number,
