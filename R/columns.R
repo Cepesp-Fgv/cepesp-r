@@ -165,7 +165,7 @@ columns <- function(regional_agregation=5, political_aggregation=2){
       'NOME_MUNICIPIO',
       'NUM_ZONA'
     ))
-  } else {
+  } else if (regional_agregation==8) {
     columns <- append(columns, list(
       'CODIGO_MACRO',
       'NOME_MACRO',
