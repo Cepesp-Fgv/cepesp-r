@@ -58,6 +58,68 @@ add_filter <- function(consulta, columns_list, column, value) {
   return(consulta)
 }
 
+switch_regional_aggregation <- function(text) {
+
+  if (is.numeric(text))
+    return(text)
+
+  return(switch(text,
+                "Brazil"= 0,
+                "Brasil"= 0,
+                "Macro"= 1,
+                "State"= 2,
+                "Estado"= 2,
+                "Meso"= 4,
+                "Micro"= 5,
+                "Municipality"= 6,"Municipio"= 6,
+                "Municipality-Polling Station"= 7,
+                "Municipio-Zona"= 7,
+                "Polling Station"= 8,
+                "Zona"= 8))
+}
+
+switch_political_aggregation <- function(text) {
+
+  if (is.numeric(text))
+    return(text)
+
+  return(switch(text,
+                "Party"= 1,
+                "Partido"= 1,
+                "Candidate"= 2,
+                "Candidato"= 2,
+                "Coalition"= 3,
+                "Coligacao"= 3,
+                "Consolidated"= 4,
+                "Consolidado"= 4))
+}
+
+switch_position <- function(text) {
+
+  if (is.numeric(text))
+    return(text)
+
+  return(switch(text,
+                "President"= 1,
+                "Presidente"= 1,
+                "Governor"= 3,
+                "Governador"= 3,
+                "Sentaor"= 5,
+                "Senador"= 5,
+                "Federal Deputy"= 6,
+                "Deputado Federal"= 6,
+                "State Deputy"= 7,
+                "Deputado Estadual"= 7,
+                "District Deputy"= 8,
+                "Deputado Districal"= 8,
+                "Mayor"= 11,
+                "Prefeito"= 11,
+                "Councillor"=13,
+                "Vereador"=13))
+
+}
+
+
 query <- function(endpoint, year, uf, regional_aggregation, political_aggregation, position, columns_list, party=NULL, candidate_number=NULL, cached=FALSE, default_columns=list()) {
 
   if(length(columns_list) == 0) {
