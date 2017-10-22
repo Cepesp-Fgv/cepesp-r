@@ -187,8 +187,6 @@ columns <- function(regional_aggregation=5, political_aggregation=2){
 columns_votes_sec <- function(regional_aggregation=5) {
 
   columns = list(
-    'DATA_GERACAO',
-    'HORA_GERACAO',
     'ANO_ELEICAO',
     'SIGLA_UE',
     'NUM_TURNO',
