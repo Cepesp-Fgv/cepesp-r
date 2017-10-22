@@ -72,9 +72,9 @@ switch_regional_aggregation <- function(text) {
                 "Meso"= 4,
                 "Micro"= 5,
                 "Municipality"= 6,"Municipio"= 6,
-                "Municipality-Polling Station"= 7,
+                "Municipality-Zone"= 7,
                 "Municipio-Zona"= 7,
-                "Polling Station"= 8,
+                "Zone"= 8,
                 "Zona"= 8))
 }
 
@@ -104,7 +104,7 @@ switch_position <- function(text) {
                 "Presidente"= 1,
                 "Governor"= 3,
                 "Governador"= 3,
-                "Sentaor"= 5,
+                "Senator"= 5,
                 "Senador"= 5,
                 "Federal Deputy"= 6,
                 "Deputado Federal"= 6,
