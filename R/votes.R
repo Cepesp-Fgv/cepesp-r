@@ -57,7 +57,7 @@ votes <- function(year=2014, regional_aggregation="Municipality", position="Pres
       party=party,
       candidate_number=candidate_number,
       cached=cached,
-      default_columns=columns_votes_sec()
+      default_columns=columns_votes_sec(regional_aggregation)
     )
   )
 }
