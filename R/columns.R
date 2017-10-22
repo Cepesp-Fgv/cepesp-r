@@ -260,6 +260,18 @@ columns_votes_sec <- function(regional_aggregation=5) {
       'NOME_MUNICIPIO',
       'NUM_ZONA'
     ))
+  } else if(regional_aggregation==8) {
+    columns <- append(columns, list(
+      'CODIGO_MACRO',
+      'NOME_MACRO',
+      'UF',
+      'NOME_UF',
+      'CODIGO_MESO',
+      'NOME_MESO',
+      'CODIGO_MICRO',
+      'NOME_MICRO',
+      'NUM_ZONA'
+    ))
   } else {
     columns <- append(columns, list(
     ))
