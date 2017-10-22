@@ -219,7 +219,6 @@ columns_votes_sec <- function(regional_aggregation=5) {
       'NOME_UF',
       'CODIGO_MESO',
       'NOME_MESO',
-      'CODIGO_MICRO'
     ))
   } else if(regional_aggregation==5) {
     columns <- append(columns, list(
