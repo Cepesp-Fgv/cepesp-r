@@ -76,7 +76,7 @@ The same parameters can also be entered in Portuguese:
 | 2008        | Governador        | Municipio          |                       |
 | 2010        | Presidente       | Municipio-Zona     |                       |
 | 2012        |                 | Zona                  |                       |
-| 2014        |                 |                       |                       |
+| 2014        |                 | Votação Seção         |                       |
 | 2016        |                 |                       |                       |
 
 Not all electoral contests occur in every year. Feasible requests are:
