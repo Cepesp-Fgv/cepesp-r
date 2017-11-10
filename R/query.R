@@ -75,7 +75,9 @@ switch_regional_aggregation <- function(text) {
                 "Municipality-Zone"= 7,
                 "Municipio-Zona"= 7,
                 "Zone"= 8,
-                "Zona"= 8))
+                "Zona"= 8,
+                "Votação Seção"= 9,
+                "Electoral Section"= 9))
 }
 
 switch_political_aggregation <- function(text) {
