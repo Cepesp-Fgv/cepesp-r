@@ -177,6 +177,22 @@ columns <- function(regional_aggregation=5, political_aggregation=2){
       'NOME_MICRO',
       'NUM_ZONA'
     ))
+  } else if (regional_aggregation==9) {
+    columns <- append(columns, list(
+      'CODIGO_MACRO',
+      'NOME_MACRO',
+      'UF',
+      'NOME_UF',
+      'CODIGO_MESO',
+      'NOME_MESO',
+      'CODIGO_MICRO',
+      'NOME_MICRO',
+      'COD_MUN_TSE',
+      'COD_MUN_IBGE',
+      'NOME_MUNICIPIO',
+      'NUM_ZONA',
+      'NUM_SECAO'
+    ))
   }
 
   return(columns)
@@ -270,8 +286,21 @@ columns_votes_sec <- function(regional_aggregation=5) {
       'NOME_MICRO',
       'NUM_ZONA'
     ))
-  } else {
+  } else if (regional_aggregation==9) {
     columns <- append(columns, list(
+      'CODIGO_MACRO',
+      'NOME_MACRO',
+      'UF',
+      'NOME_UF',
+      'CODIGO_MESO',
+      'NOME_MESO',
+      'CODIGO_MICRO',
+      'NOME_MICRO',
+      'COD_MUN_TSE',
+      'COD_MUN_IBGE',
+      'NOME_MUNICIPIO',
+      'NUM_ZONA',
+      'NUM_SECAO'
     ))
   }
 
