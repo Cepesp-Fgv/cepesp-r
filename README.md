@@ -61,7 +61,7 @@ The table below highlights the available options for each required parameter:
 | 2008        | Governor        | Municipality          |                       |
 | 2010        | President       | Municipality-Zone     |                       |
 | 2012        |                 | Zone                  |                       |
-| 2014        |                 |                       |                       |
+| 2014        |                 | Electoral Section     |                       |
 | 2016        |                 |                       |                       |
 
 The same parameters can also be entered in Portuguese:
