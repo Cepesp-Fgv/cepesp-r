@@ -114,7 +114,7 @@ switch_position <- function(text) {
                 "State Deputy"= 7,
                 "Deputado Estadual"= 7,
                 "District Deputy"= 8,
-                "Deputado Districal"= 8,
+                "Deputado Distrital"= 8,
                 "Mayor"= 11,
                 "Prefeito"= 11,
                 "Councillor"=13,
