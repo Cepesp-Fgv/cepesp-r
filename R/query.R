@@ -77,6 +77,7 @@ switch_regional_aggregation <- function(text) {
                 "Zone"= 8,
                 "Zona"= 8,
                 "Votação Seção"= 9,
+                "Ballot Box"= 9,
                 "Electoral Section"= 9))
 }
 
