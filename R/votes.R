@@ -23,6 +23,7 @@ cepespdata <- function(year=2014, state="all", regional_aggregation="Municipalit
   political_aggregation <- switch_political_aggregation(political_aggregation)
   position <- switch_position(position)
 
+  warning("[WARN] cepespdata function may return some invalid or incorrect results")
   return (
     query(
       endpoint="tse",

@@ -1,11 +1,10 @@
 Package: cepespR
 Type: Package
-Title: What the Package Does (Title Case)
+Title: Cepesp-R is a simple package designed to assist users to access the API to Cepespdata, which facilitates rapid, cleaned, organized and documented access to the Tribunal Superior Eleitoral's data on elections in Brazil from 1998 to 2016.
 Version: 0.1.0
-Author: Who wrote it
-Maintainer: The package maintainer <yourself@somewhere.net>
-Description: More about what it does (maybe more than one line)
-    Use four spaces when indenting paragraphs within the Description.
+Author: Centro de Política e Economia do Setor Público (CEPESP)
+Maintainer: CEPESP
+Description: This R project comunicates with our CEPESPdata API. All the data within this application was extracted from the official TSE repository. After the extraction, the data files were post-processed and organized using HiveQL and Pandas (Python library). There is also an internal cache to minimize the response time of all pre-made requests.
 License: What license is it under?
 Encoding: UTF-8
 LazyData: true
