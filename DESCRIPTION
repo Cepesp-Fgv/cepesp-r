@@ -3,7 +3,8 @@ Type: Package
 Title: Cepesp-R
 Version: 0.1.0
 Author: CEPESP
-Maintainer: CEPESP
+Maintainer: The package maintainer <yourself@somewhere.net>
 Description: Cepesp-R is a simple package designed to assist users to access the API to Cepespdata.
+License: What license is it under?
 Encoding: UTF-8
 LazyData: true
