@@ -1,5 +1,7 @@
 votes_x_candidates <- function (year=2014, regional_aggregation="Municipality", position="President", cached=FALSE, state="all", party=NULL, candidate_number=NULL) {
 
+  warning("[WARN] votes_x_candidates function may return some invalid or incorrect results")
+
   candidates <- candidates(
     year=year,
     position=position,
