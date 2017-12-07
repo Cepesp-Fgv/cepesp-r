@@ -33,28 +33,24 @@ build_request_url <- function(endpoint) {
 
 build_request_parameters <- function(year, uf, regional_aggregation, political_aggregation, position, columns_list, party=NULL, candidate_number=NULL){
   assign("filter_index", 0, envir = .GlobalEnv)
-  names(columns_list) <- rep("selected_columns[]",length(columns_list))
+  names(columns_list) <- rep("selected_columns[]", length(columns_list))
   consulta <- append(list(anos=year,agregacao_regional=regional_aggregation, agregacao_politica=political_aggregation, cargo=position), columns_list)
-  consulta <- add_filter(consulta, columns_list, "NUMERO_PARTIDO", party)
-  consulta <- add_filter(consulta, columns_list, "UF", uf)
-  consulta <- add_filter(consulta, columns_list, "NUMERO_CANDIDATO", candidate_number)
+  consulta <- add_filter(consulta, "NUMERO_PARTIDO", party)
+  consulta <- add_filter(consulta, "UF", uf)
+  consulta <- add_filter(consulta, "NUMERO_CANDIDATO", candidate_number)
   return(consulta)
 }
 
-add_filter <- function(consulta, columns_list, column, value) {
+add_filter <- function(consulta, column, value) {
 
   if(is.null(value) || value=="all")
     return(consulta)
 
-  if(column %in% columns_list) {
-    column_name <- paste0("columns[",filter_index,"][name]")
-    search_name <- paste0("columns[",filter_index,"][search][value]")
-    consulta <- append(consulta, setNames(column, column_name))
-    consulta <- append(consulta, setNames(value, search_name))
-    assign("filter_index", filter_index + 1, envir = .GlobalEnv)
-    return(consulta)
-  }
-  stop(paste(column, "column is required"))
+  column_name <- paste0("columns[",filter_index,"][name]")
+  search_name <- paste0("columns[",filter_index,"][search][value]")
+  consulta <- append(consulta, setNames(column, column_name))
+  consulta <- append(consulta, setNames(value, search_name))
+  assign("filter_index", filter_index + 1, envir = .GlobalEnv)
   return(consulta)
 }
 

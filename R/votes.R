@@ -64,13 +64,13 @@ votes <- function(year=2014, regional_aggregation="Municipality", position="Pres
 }
 
 ## Candidatos
-candidates <- function(year=2014, position="President", cached=FALSE, columns_list=list(), state="all", party=NULL, candidate_number=NULL) {
+candidates <- function(year=2014, position="President", cached=FALSE, columns_list=list(), party=NULL, candidate_number=NULL) {
   position <- switch_position(position)
   return (
     query(
       endpoint="candidatos",
       year=year,
-      uf=state,
+      uf="all",
       regional_aggregation=0,
       political_aggregation=0,
       position=position,
@@ -84,13 +84,13 @@ candidates <- function(year=2014, position="President", cached=FALSE, columns_li
 }
 
 ## Legendas
-coalitions <- function(year=2014, position="President", cached=FALSE, columns_list=list(), state="all", party=NULL) {
+coalitions <- function(year=2014, position="President", cached=FALSE, columns_list=list(), party=NULL) {
   position <- switch_position(position)
   return (
     query(
       endpoint="legendas",
       year=year,
-      uf=state,
+      uf="all",
       regional_aggregation=0,
       political_aggregation=0,
       position=position,
