@@ -317,7 +317,7 @@ columns_candidates <- function() {
     'NUM_TURNO',
     'DESCRICAO_ELEICAO',
     'SIGLA_UF',
-    #'SIGLA_UE',
+    'SIGLA_UE',
     'DESCRICAO_UE',
     'CODIGO_CARGO',
     'DESCRICAO_CARGO',
