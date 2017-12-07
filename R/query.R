@@ -1,8 +1,8 @@
 library(digest)
 library(httr)
 
-#base_url <- "http://127.0.0.1:5000/api/consulta/"
-base_url <- "http://cepesp.io/api/consulta/"
+base_url <- "http://127.0.0.1:5000/api/consulta/"
+#base_url <- "http://cepesp.io/api/consulta/"
 
 
 load_from_cache <- function(request) {
@@ -35,9 +35,15 @@ build_request_parameters <- function(year, uf, regional_aggregation, political_a
   assign("filter_index", 0, envir = .GlobalEnv)
   names(columns_list) <- rep("selected_columns[]", length(columns_list))
   consulta <- append(list(anos=year,agregacao_regional=regional_aggregation, agregacao_politica=political_aggregation, cargo=position), columns_list)
+
+  if (!is.null(uf) && uf != "all") {
+    consulta <- append(consulta, list(uf_filter=uf))
+  }
+
   consulta <- add_filter(consulta, "NUMERO_PARTIDO", party)
   consulta <- add_filter(consulta, "UF", uf)
   consulta <- add_filter(consulta, "NUMERO_CANDIDATO", candidate_number)
+
   return(consulta)
 }
 
