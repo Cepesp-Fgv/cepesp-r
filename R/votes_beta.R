@@ -21,9 +21,9 @@ votes_x_candidates <- function (year=2014, regional_aggregation="Municipality", 
   )
 
   if (switch_position(position) == 1) {
-    keys <- c("NUMERO_CANDIDATO", "ANO_ELEICAO", "DESCRICAO_CARGO", "NUM_TURNO")
+    keys <- c("NUMERO_CANDIDATO", "ANO_ELEICAO", "CODIGO_CARGO", "DESCRICAO_CARGO", "NUM_TURNO")
   } else {
-    keys <- c("SIGLA_UE", "NUMERO_CANDIDATO", "ANO_ELEICAO", "DESCRICAO_CARGO", "NUM_TURNO")
+    keys <- c("SIGLA_UE", "NUMERO_CANDIDATO", "ANO_ELEICAO", "CODIGO_CARGO", "DESCRICAO_CARGO", "NUM_TURNO")
   }
 
   result <- merge(x = votes, y = candidates, by=keys, all.x = TRUE)
