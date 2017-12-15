@@ -125,7 +125,7 @@ Each time a request is made to the cepesp-R API, the specific dataset is constru
 Note that if you use this feature the app will create a sub-directory `/static/cache` of your working directory to store the downloaded data. You can manually delete this data to force a new download the next time the same request is made. 
 
 ```{r, eval=FALSE}
-data <- votes(year = 2014, position=1, , regional_aggregation="Municipality", cached=TRUE)
+data <- votes(year = 2014, position=1, regional_aggregation="Municipality", cached=TRUE)
 ```
 
 
