@@ -99,8 +99,6 @@ Not all electoral contests occur in every year. Feasible requests are:
 ### Selecting Variables
 The default setting is for the function to return all the available variables (columns). To select specific variables and limit the size of the request, you can specify a list of required columns in the `columns_list` property. The specific columns available depend on the political and regional aggregation selected so you are advised to refer to the API documentation at https://github.com/Cepesp-Fgv/cepesp-rest for further details. 
 
-If you are requesting specific columns, remember that the columns "QTDE_VOTOS" and an identifier for the level of regional aggregation and political aggregation must be included or the function will raise an error. 
-
 Example:
 ```{r}
 columns <- list("NUMERO_CANDIDATO","UF","QTDE_VOTOS","COD_MUN_IBGE")
@@ -113,11 +111,11 @@ To limit the size of the data returned by the API, the request can be filtered t
 
 For example:
 ```{r}
-data <- votes(year = 2014, position=1, regional_aggregation=3, political_aggregation=2, state="RS") #To select Rio Grande do Sul 
+data <- cepespdata(year = 2014, position=1, regional_aggregation=2, political_aggregation=2, state="RS") #To select Rio Grande do Sul 
 
-data <- votes(year = 2014, position=1, regional_aggregation=3, political_aggregation=2, party=13) #To select the PT (=13)
+data <- cepespdata(year = 2014, position=1, regional_aggregation=2, political_aggregation=2, party=13) #To select the PT (=13)
 
-data <- votes(year = 2014, position=1, regional_aggregation=3, political_aggregation=2, candidate=2511) #To select candidate 2511
+data <- cepespdata(year = 2014, position=1, regional_aggregation=2, political_aggregation=2, candidate=2511) #To select candidate 2511
 ```
 **Important:** When requesting data with `regional_aggregation=9`, the filter `state` should not be `NULL`
 
