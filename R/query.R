@@ -60,10 +60,17 @@ add_filter <- function(consulta, column, value) {
   return(consulta)
 }
 
+switch_numeric <- function(number, values) {
+  if (number %in% values)
+    return(number)
+  else
+    return(NULL)
+}
+
 switch_regional_aggregation <- function(text) {
 
   if (is.numeric(text))
-    return(text)
+    return(switch_numeric(text, c(0, 1, 2, 4, 5, 6, 7, 8, 9)))
 
   return(switch(text,
                 "Brazil"= 0,
@@ -86,7 +93,7 @@ switch_regional_aggregation <- function(text) {
 switch_political_aggregation <- function(text) {
 
   if (is.numeric(text))
-    return(text)
+    return(switch_numeric(text, c(1, 2, 3, 4)))
 
   return(switch(text,
                 "Party"= 1,
@@ -102,7 +109,7 @@ switch_political_aggregation <- function(text) {
 switch_position <- function(text) {
 
   if (is.numeric(text))
-    return(text)
+      return(switch_numeric(text, c(1, 3, 5, 6, 7, 8, 11, 13)))
 
   return(switch(text,
                 "President"= 1,
@@ -123,7 +130,6 @@ switch_position <- function(text) {
                 "Vereador"=13))
 
 }
-
 
 query <- function(endpoint, year, uf, regional_aggregation, political_aggregation, position, columns_list, party=NULL, candidate_number=NULL, cached=FALSE, default_columns=list()) {
 
