@@ -135,11 +135,14 @@ query <- function(endpoint, year, uf, regional_aggregation, political_aggregatio
   }
 
   consulta <- build_request_parameters(year, uf, regional_aggregation, political_aggregation, position, columns_list, party, candidate_number)
+
   data <- load_from_cache(consulta)
 
   if(is.null(data) || !cached){
     resp <- httr::GET(build_request_url(endpoint), query=consulta)
     data <- httr::content(resp)
+  }
+  if(cached){
     save_on_cache(request = consulta, data)
   }
   return(data)
