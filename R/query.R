@@ -1,6 +1,3 @@
-library(digest)
-library(httr)
-
 #base_url <- "http://127.0.0.1:5000/api/consulta/"
 base_url <- "http://cepesp.io/api/consulta/"
 
@@ -23,7 +20,7 @@ hash_r <- function(request, extension=".gz") {
   if (!dir.exists(folder))
     dir.create(folder, recursive = TRUE)
 
-  return(paste0(folder, digest(do.call(paste, c(as.list(request), sep=""))), extension))
+  return(paste0(folder, digest::digest(do.call(paste, c(as.list(request), sep=""))), extension))
 }
 
 build_request_url <- function(endpoint) {
@@ -138,11 +135,14 @@ query <- function(endpoint, year, uf, regional_aggregation, political_aggregatio
   }
 
   consulta <- build_request_parameters(year, uf, regional_aggregation, political_aggregation, position, columns_list, party, candidate_number)
+
   data <- load_from_cache(consulta)
 
   if(is.null(data) || !cached){
-    resp <- GET(build_request_url(endpoint), query=consulta)
-    data <- content(resp)
+    resp <- httr::GET(build_request_url(endpoint), query=consulta)
+    data <- httr::content(resp)
+  }
+  if(cached){
     save_on_cache(request = consulta, data)
   }
   return(data)

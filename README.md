@@ -46,6 +46,16 @@ cepespdata(year=2014, position="President", regional_aggregation="Municipality",
 
 The structure of the resulting data.frame has one row for each unit of regional aggregation and for each unit of political aggregation (for example, for each candidate in each municipality or each party in each state).
 
+####New Functions (get_*)
+
+Each cepespR function which extracts data from CEPESPData has a `get_*` version of it. The main difference is that there is no default value for __year__ or for __position__. Now these parameters need to be supplied otherwise you'll get an error message.
+
+| old version | newer version   |
+| ----------- |-----------------| 
+| cepespdata  | get_cepespdata  |
+| votos       | get_votos       |
+| candidates  | get_candidates  | 
+| coalitions  | get_coalitions  |
 
 ### Parameters
 
