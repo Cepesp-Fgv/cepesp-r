@@ -48,11 +48,11 @@ The structure of the resulting data.frame has one row for each unit of regional 
 
 #### New Functions
 
-Aiming for readability, the functions were renamed as follow.
+Aiming for readability, the functions were renamed as follows.
 
 | old version | newer version   |
 | ----------- |-----------------| 
-| cepespdata  | get_cepespdata  |
+| cepespdata  | get_elections   |
 | votos       | get_votos       |
 | candidates  | get_candidates  | 
 | coalitions  | get_coalitions  |
