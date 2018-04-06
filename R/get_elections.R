@@ -123,7 +123,7 @@ get_elections <- function(year, position, state="all", regional_aggregation="Mun
   )
 }
 
-#' @rdname get_cepespdata
+#' @rdname get_elections
 #' @export
 
 get_votes <- function(year, position, regional_aggregation="Municipality", state="all", cached=FALSE, columns_list=list(), party=NULL, candidate_number=NULL) {
@@ -154,7 +154,7 @@ get_votes <- function(year, position, regional_aggregation="Municipality", state
   )
 }
 
-#' @rdname get_cepespdata
+#' @rdname get_elections
 #' @export
 
 get_candidates <- function(year, position, cached=FALSE, columns_list=list(), party=NULL, candidate_number=NULL) {
@@ -176,7 +176,7 @@ get_candidates <- function(year, position, cached=FALSE, columns_list=list(), pa
   )
 }
 
-#' @rdname get_cepespdata
+#' @rdname get_elections
 #' @export
 
 get_coalitions <- function(year, position, cached=FALSE, columns_list=list(), party=NULL) {
