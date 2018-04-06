@@ -52,7 +52,7 @@ Aiming for readability, the functions were renamed as follow.
 
 | old version | newer version   |
 | ----------- |-----------------| 
-| cepespdata  | get_cepespdata  |
+| cepespdata  | get_elections   |
 | votos       | get_votos       |
 | candidates  | get_candidates  | 
 | coalitions  | get_coalitions  |
