@@ -1,6 +1,6 @@
-# cepesp-r
+# cepespR
 
-Cepesp-R is a simple package designed to assist users to access the API to [Cepespdata](http://cepesp.io), which facilitates rapid, cleaned, organized and documented access to the [Tribunal Superior Eleitoral's](http://www.tse.jus.br/eleicoes/estatisticas/repositorio-de-dados-eleitorais) data on elections in Brazil from 1998 to 2016.  
+CepespR is a simple package designed to assist users to access the API to [Cepespdata](http://cepesp.io), which facilitates rapid, cleaned, organized and documented access to the [Tribunal Superior Eleitoral's](http://www.tse.jus.br/eleicoes/estatisticas/repositorio-de-dados-eleitorais) data on elections in Brazil from 1998 to 2016.  
 
 ## About the CEPESPdata internal API
 This R project comunicates with our CEPESPdata API. All the data within this application was extracted from the official TSE repository. After the extraction, the data files were post-processed and organized using HiveQL and Pandas (Python library). There is also an internal cache to minimize the response time of all pre-made requests.
@@ -46,6 +46,18 @@ cepespdata(year=2014, position="President", regional_aggregation="Municipality",
 
 The structure of the resulting data.frame has one row for each unit of regional aggregation and for each unit of political aggregation (for example, for each candidate in each municipality or each party in each state).
 
+#### New Functions
+
+Aiming for readability, the functions were renamed as follows.
+
+| old version | newer version   |
+| ----------- |-----------------| 
+| cepespdata  | get_elections   |
+| votos       | get_votos       |
+| candidates  | get_candidates  | 
+| coalitions  | get_coalitions  |
+
+They have the same functionality of their old versions, with one small difference. The get_* functions dont provide default values for __year__ and __position__.
 
 ### Parameters
 
