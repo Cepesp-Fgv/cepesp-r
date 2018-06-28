@@ -44,7 +44,7 @@ build_request_parameters <- function(year, uf, regional_aggregation, political_a
   consulta <- add_filter(consulta, "NUMERO_PARTIDO", party)
   consulta <- add_filter(consulta, "UF", uf)
   consulta <- add_filter(consulta, "NUMERO_CANDIDATO", candidate_number)
-
+  
   return(consulta)
 }
 
@@ -144,7 +144,8 @@ query <- function(endpoint, year, uf, regional_aggregation, political_aggregatio
   }
   if(is.null(data) || !cached){
     resp <- httr::GET(build_request_url(endpoint), query=consulta)
-    data <- httr::content(resp)
+    text <- httr::content(resp, type = "text/plain", encoding = "UTF-8")
+    data <- readr::read_delim(text, delim = ";", locale = readr::locale(encoding = "UTF-8", decimal_mark = ",", grouping_mark = "."))
   }
   if(cached){
     save_on_cache(request = consulta, data)
