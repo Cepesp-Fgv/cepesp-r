@@ -95,6 +95,7 @@
 #' }
 
 get_elections <- function(year, position, state="all", regional_aggregation="Municipality", political_aggregation="Candidate", cached=FALSE, columns_list=list(), party=NULL, candidate_number=NULL) {
+  
   regional_aggregation <- switch_regional_aggregation(regional_aggregation)
   political_aggregation <- switch_political_aggregation(political_aggregation)
   position <- switch_position(position)
@@ -106,19 +107,20 @@ get_elections <- function(year, position, state="all", regional_aggregation="Mun
     stop('Unknown regional_aggregation. Check if there is any mispelling error.')
 
   warning("[WARN] cepespdata function may return some invalid or incorrect results")
+  
   return (
     query(
-      endpoint="tse",
-      year=year,
-      uf=state,
-      regional_aggregation=regional_aggregation,
-      political_aggregation=political_aggregation,
-      position=position,
-      columns_list=columns_list,
-      party=party,
-      candidate_number=candidate_number,
-      cached=cached,
-      default_columns=columns(regional_aggregation, political_aggregation)
+      endpoint              = "tse",
+      year                  = year,
+      uf                    = state,
+      regional_aggregation  = regional_aggregation,
+      political_aggregation = political_aggregation,
+      position              = position,
+      columns_list          = columns_list,
+      party                 = party,
+      candidate_number      = candidate_number,
+      cached                = cached,
+      default_columns       = columns(regional_aggregation, political_aggregation)
     )
   )
 }

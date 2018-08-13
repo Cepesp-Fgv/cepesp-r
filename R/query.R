@@ -32,7 +32,7 @@ build_request_url <- function(endpoint) {
 }
 
 
-build_request_parameters <- function(year, uf, regional_aggregation, political_aggregation, position, columns_list, party=NULL, candidate_number=NULL){
+build_request_parameters <- function(year, uf, regional_aggregation, political_aggregation = NULL, position, columns_list, party=NULL, candidate_number=NULL){
   assign("filter_index", 0, envir = .GlobalEnv)
   names(columns_list) <- rep("selected_columns[]", length(columns_list))
   consulta <- append(list(anos=year,agregacao_regional=regional_aggregation, agregacao_politica=political_aggregation, cargo=position), columns_list)
@@ -149,7 +149,7 @@ query <- function(endpoint, year, uf, regional_aggregation, political_aggregatio
   }
   
   if(is.null(data) || !cached){
-    resp <- httr::GET(build_request_url(endpoint), query=consulta[1:4])
+    resp <- httr::GET(build_request_url(endpoint), query = consulta)
     text <- httr::content(resp, type = "text/plain", encoding = "UTF-8")
     data <- readr::read_csv(text, locale = readr::locale(encoding = "UTF-8"))
   }

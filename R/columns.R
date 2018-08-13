@@ -136,7 +136,7 @@ columns <- function(regional_aggregation=5, political_aggregation=2){
       'CODIGO_MICRO',
       'NOME_MICRO'
     ))
-  } else if(regional_aggregation==6) {
+  } else if(regional_aggregation == 6) {
     columns <- c(columns, list(
       'CODIGO_MACRO',
       'NOME_MACRO',
@@ -381,3 +381,4 @@ columns_political_parties <- function() {
   ))
 
 }
+
