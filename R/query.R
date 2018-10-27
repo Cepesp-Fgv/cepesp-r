@@ -32,8 +32,8 @@ build_request_url <- function(endpoint) {
 }
 
 
-build_request_parameters <- function(year, uf, regional_aggregation, political_aggregation = NULL, position, columns_list, party=NULL, candidate_number=NULL){
-  assign("filter_index", 0, envir = .GlobalEnv)
+build_request_parameters <- function(year, uf, regional_aggregation, political_aggregation = NULL, position, columns_list, party=NULL, candidate_number=NULL) {
+
   names(columns_list) <- rep("selected_columns[]", length(columns_list))
   consulta <- append(list(anos=year,agregacao_regional=regional_aggregation, agregacao_politica=political_aggregation, cargo=position), columns_list)
 
@@ -44,11 +44,11 @@ build_request_parameters <- function(year, uf, regional_aggregation, political_a
   consulta <- add_filter(consulta, "NUMERO_PARTIDO", party)
   consulta <- add_filter(consulta, "UF", uf)
   consulta <- add_filter(consulta, "NUMERO_CANDIDATO", candidate_number)
-  
+
   if(political_aggregation == 4){
     consulta <- consulta[1:4]
   }
-  
+
   return(consulta)
 }
 
@@ -57,11 +57,9 @@ add_filter <- function(consulta, column, value) {
   if(is.null(value) || value=="all")
     return(consulta)
 
-  column_name <- paste0("columns[",filter_index,"][name]")
-  search_name <- paste0("columns[",filter_index,"][search][value]")
+  column_name <- paste0("filters[",column,"]")
   consulta <- append(consulta, setNames(column, column_name))
-  consulta <- append(consulta, setNames(value, search_name))
-  assign("filter_index", filter_index + 1, envir = .GlobalEnv)
+
   return(consulta)
 }
 
@@ -143,18 +141,20 @@ query <- function(endpoint, year, uf, regional_aggregation, political_aggregatio
   }
 
   consulta <- build_request_parameters(year, uf, regional_aggregation, political_aggregation, position, columns_list, party, candidate_number)
-  
+
   if(cached){
     data <- load_from_cache(consulta)
   }
-  
+
   if(is.null(data) || !cached){
     resp <- httr::GET(build_request_url(endpoint), query = consulta)
     text <- httr::content(resp, type = "text/plain", encoding = "UTF-8")
     data <- readr::read_csv(text, locale = readr::locale(encoding = "UTF-8"))
   }
+
   if(cached){
     save_on_cache(request = consulta, data)
   }
+
   return(data)
 }
