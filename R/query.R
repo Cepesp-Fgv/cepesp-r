@@ -2,7 +2,7 @@
 #' @import utils
 
 #base_url <- "http://127.0.0.1:5000/api/consulta/"
-base_url <- "http://cepesp.io/api/consulta/"
+base_url <- "http://test.cepesp.io/api/consulta/"
 
 
 load_from_cache <- function(request) {
