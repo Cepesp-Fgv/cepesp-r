@@ -95,7 +95,7 @@
 #' }
 
 get_elections <- function(year, position, state="all", regional_aggregation="Municipality", political_aggregation="Candidate", cached=FALSE, columns_list=list(), party=NULL, candidate_number=NULL) {
-  
+
   regional_aggregation <- switch_regional_aggregation(regional_aggregation)
   political_aggregation <- switch_political_aggregation(political_aggregation)
   position <- switch_position(position)
@@ -106,8 +106,6 @@ get_elections <- function(year, position, state="all", regional_aggregation="Mun
   if (is.null(regional_aggregation))
     stop('Unknown regional_aggregation. Check if there is any mispelling error.')
 
-  warning("[WARN] cepespdata function may return some invalid or incorrect results")
-  
   return (
     query(
       endpoint              = "tse",
