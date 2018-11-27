@@ -1,8 +1,8 @@
 #' @import stats
 #' @import utils
 
-base_url <- "http://127.0.0.1:5000/api/consulta/"
-#base_url <- "http://cepesp.io/api/consulta/"
+#base_url <- "http://127.0.0.1:5000/api/consulta/"
+base_url <- "http://cepesp.io/api/consulta/"
 
 
 load_from_cache <- function(request) {
@@ -42,7 +42,6 @@ build_request_parameters <- function(year, uf, regional_aggregation, political_a
   }
 
   consulta <- add_filter(consulta, "NUMERO_PARTIDO", party)
-  consulta <- add_filter(consulta, "UF", uf)
   consulta <- add_filter(consulta, "NUMERO_CANDIDATO", candidate_number)
 
   if(political_aggregation == 4){
@@ -58,7 +57,7 @@ add_filter <- function(consulta, column, value) {
     return(consulta)
 
   column_name <- paste0("filters[",column,"]")
-  consulta <- append(consulta, setNames(column, column_name))
+  consulta <- append(consulta, setNames(value, column_name))
 
   return(consulta)
 }
