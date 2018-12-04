@@ -1,4 +1,4 @@
-# cepespR
+# CEPESP R
 
 CepespR is a simple package designed to assist users to access the API to [Cepespdata](http://cepesp.io), which facilitates rapid, cleaned, organized and documented access to the [Tribunal Superior Eleitoral's](http://www.tse.jus.br/eleicoes/estatisticas/repositorio-de-dados-eleitorais) data on elections in Brazil from 1998 to 2016.  
 
