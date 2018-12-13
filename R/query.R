@@ -1,8 +1,8 @@
 #' @import stats
 #' @import utils
 
-#base_url <- "http://127.0.0.1:5000/api/consulta/"
-base_url <- "http://cepesp.io/api/consulta/"
+base_url <- "http://127.0.0.1:5000/api/consulta/"
+#base_url <- "http://cepesp.io/api/consulta/"
 
 
 load_from_cache <- function(request) {
@@ -34,7 +34,7 @@ build_request_url <- function(endpoint) {
 
 build_request_parameters <- function(year, uf, regional_aggregation, political_aggregation = NULL, position, columns_list, party=NULL, candidate_number=NULL) {
 
-  names(columns_list) <- rep("selected_columns[]", length(columns_list))
+  names(columns_list) <- rep("c[]", length(columns_list))
   consulta <- append(list(anos=year,agregacao_regional=regional_aggregation, agregacao_politica=political_aggregation, cargo=position), columns_list)
 
   if (!is.null(uf) && uf != "all") {
@@ -147,8 +147,7 @@ query <- function(endpoint, year, uf, regional_aggregation, political_aggregatio
 
   if(is.null(data) || !cached){
     resp <- httr::GET(build_request_url(endpoint), query = consulta)
-    text <- httr::content(resp, type = "text/plain", encoding = "UTF-8")
-    data <- readr::read_csv(text, locale = readr::locale(encoding = "UTF-8"))
+    data <- httr::content(resp, type = "text/csv", encoding = "UTF-8")
   }
 
   if(cached){
