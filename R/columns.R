@@ -374,7 +374,7 @@ columns_political_parties <- function() {
     'SIGLA_COLIGACAO',
     'NOME_COLIGACAO',
     'COMPOSICAO_COLIGACAO',
-    'SEQUENCIAL_COLIGACAO'
+    'SEQUENCIA_COLIGACAO'
   ))
 
 }
