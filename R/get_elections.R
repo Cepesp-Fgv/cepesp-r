@@ -93,7 +93,6 @@
 #'                       regional_aggregation = "State",
 #'                       political_aggregation = "Party")
 #' }
-
 get_elections <- function(year, position, state="all", regional_aggregation="Municipality", political_aggregation="Candidate", cached=FALSE, columns_list=list(), party=NULL, candidate_number=NULL) {
 
   regional_aggregation <- switch_regional_aggregation(regional_aggregation)
@@ -107,8 +106,8 @@ get_elections <- function(year, position, state="all", regional_aggregation="Mun
     stop('Unknown regional_aggregation. Check if there is any mispelling error.')
 
   return (
-    query(
-      endpoint              = "tse",
+    query(build_params(
+      table                 = "tse",
       year                  = year,
       uf                    = state,
       regional_aggregation  = regional_aggregation,
@@ -117,15 +116,13 @@ get_elections <- function(year, position, state="all", regional_aggregation="Mun
       columns_list          = columns_list,
       party                 = party,
       candidate_number      = candidate_number,
-      cached                = cached,
       default_columns       = columns(regional_aggregation, political_aggregation)
-    )
+    ), cached)
   )
 }
 
 #' @rdname get_elections
 #' @export
-
 get_votes <- function(year, position, regional_aggregation="Municipality", state="all", cached=FALSE, columns_list=list(), party=NULL, candidate_number=NULL) {
   prev_reg <- regional_aggregation
   regional_aggregation <- switch_regional_aggregation(regional_aggregation)
@@ -134,65 +131,57 @@ get_votes <- function(year, position, regional_aggregation="Municipality", state
   if (is.null(regional_aggregation))
     stop('Unknown regional_aggregation. Check if there is any mispelling error.')
 
-  if ((is.null(state) || state == "all") && regional_aggregation == 9)
-    stop(paste('The "state" parameter is required when "regional_aggregation" is "', prev_reg, '"'))
-
   return (
-    query(
-      endpoint="votos",
-      year=year,
-      uf=state,
-      regional_aggregation=regional_aggregation,
-      political_aggregation=0,
-      position=position,
-      columns_list=columns_list,
-      party=party,
-      candidate_number=candidate_number,
-      cached=cached,
-      default_columns=columns_votes_sec(regional_aggregation)
-    )
+    query(build_params(
+      table                 = "votos",
+      year                  = year,
+      uf                    = state,
+      regional_aggregation  = regional_aggregation,
+      political_aggregation = 0,
+      position              = position,
+      columns_list          = columns_list,
+      party                 = party,
+      candidate_number      = candidate_number,
+      default_columns       = columns_votes_sec(regional_aggregation)
+    ), cached)
   )
 }
 
 #' @rdname get_elections
 #' @export
-
 get_candidates <- function(year, position, cached=FALSE, columns_list=list(), party=NULL, candidate_number=NULL) {
   position <- switch_position(position)
   return (
-    query(
-      endpoint="candidatos",
-      year=year,
-      uf="all",
-      regional_aggregation=0,
-      political_aggregation=0,
-      position=position,
-      columns_list=columns_list,
-      party=party,
-      candidate_number=candidate_number,
-      cached=cached,
-      default_columns=columns_candidates()
-    )
+    query(build_params(
+      table                 = "candidatos",
+      year                  = year,
+      uf                    = "all",
+      regional_aggregation  = 0,
+      political_aggregation = 0,
+      position              = position,
+      columns_list          = columns_list,
+      party                 = party,
+      candidate_number      = candidate_number,
+      default_columns       = columns_candidates()
+    ), cached)
   )
 }
 
 #' @rdname get_elections
 #' @export
-
 get_coalitions <- function(year, position, cached=FALSE, columns_list=list(), party=NULL) {
   position <- switch_position(position)
   return (
-    query(
-      endpoint="legendas",
-      year=year,
-      uf="all",
-      regional_aggregation=0,
-      political_aggregation=0,
-      position=position,
-      columns_list=columns_list,
-      party=party,
-      cached=cached,
-      default_columns=columns_political_parties()
-    )
+    query(build_params(
+      table                 = "legendas",
+      year                  = year,
+      uf                    = "all",
+      regional_aggregation  = 0,
+      political_aggregation = 0,
+      position              = position,
+      columns_list          = columns_list,
+      party                 = party,
+      default_columns       = columns_political_parties()
+    ), cached)
   )
 }

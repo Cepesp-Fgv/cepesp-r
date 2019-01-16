@@ -1,20 +1,21 @@
 #' @import stats
 #' @import utils
 
-#base_url <- "http://127.0.0.1:5000/api/consulta/"
-base_url <- "http://cepesp.io/api/consulta/"
+#base_url   <- "http://127.0.0.1:5000/"
+base_url    <- "http://cepesp.io/"
+api_version <- "1.0.0"
 
 
-load_from_cache <- function(request) {
-  if(file.exists(hash_r(request))){
-    return(read.csv(hash_r(request),sep=",",header = T,quote = "\""))
+load_from_cache <- function(query_id) {
+  if(file.exists(query_id)){
+    return(read.csv(query_id, sep=",", header=T, quote = "\""))
   } else {
     return(NULL)
   }
 }
 
-save_on_cache <- function(request, data) {
-  gz1 <- gzfile(hash_r(request), "w")
+save_on_cache <- function(query_id, data) {
+  gz1 <- gzfile(query_id, "w")
   write.csv(data, gz1)
   close(gz1)
 }
@@ -27,39 +28,36 @@ hash_r <- function(request, extension=".gz") {
   return(paste0(folder, digest::digest(do.call(paste, c(as.list(request), sep=""))), extension))
 }
 
-build_request_url <- function(endpoint) {
-  return(paste0(base_url, endpoint))
-}
+build_params <- function(table, year, uf, regional_aggregation, political_aggregation = NULL, position, columns_list, default_columns=list(), party=NULL, candidate_number=NULL) {
 
-
-build_request_parameters <- function(year, uf, regional_aggregation, political_aggregation = NULL, position, columns_list, party=NULL, candidate_number=NULL) {
+  if(length(columns_list) == 0) {
+    columns_list <- default_columns
+  }
 
   names(columns_list) <- rep("c[]", length(columns_list))
-  consulta <- append(list(anos=year,agregacao_regional=regional_aggregation, agregacao_politica=political_aggregation, cargo=position), columns_list)
+  params <- append(list(anos=year,agregacao_regional=regional_aggregation, agregacao_politica=political_aggregation, cargo=position), columns_list)
 
   if (!is.null(uf) && uf != "all") {
-    consulta <- append(consulta, list(uf_filter=uf))
+    params <- append(params, list(uf_filter=uf))
   }
 
-  consulta <- add_filter(consulta, "NUMERO_PARTIDO", party)
-  consulta <- add_filter(consulta, "NUMERO_CANDIDATO", candidate_number)
+  params <- add_filter(params, "NUMERO_PARTIDO", party)
+  params <- add_filter(params, "NUMERO_CANDIDATO", candidate_number)
+  params <- append(params, list(r_ver=api_version))
+  params <- append(params, list(table=table))
 
-  if(political_aggregation == 4){
-    consulta <- consulta[1:4]
-  }
-
-  return(consulta)
+  return(params)
 }
 
-add_filter <- function(consulta, column, value) {
+add_filter <- function(params, column, value) {
 
   if(is.null(value) || value=="all")
-    return(consulta)
+    return(params)
 
   column_name <- paste0("filters[",column,"]")
-  consulta <- append(consulta, setNames(value, column_name))
+  params <- append(params, setNames(value, column_name))
 
-  return(consulta)
+  return(params)
 }
 
 switch_numeric <- function(number, values) {
@@ -133,28 +131,71 @@ switch_position <- function(text) {
 
 }
 
-query <- function(endpoint, year, uf, regional_aggregation, political_aggregation, position, columns_list, party=NULL, candidate_number=NULL, cached=FALSE, default_columns=list()) {
+query_get_id <- function(params) {
+  endpoint <- paste0(base_url, 'api/consulta/athena/query')
+  response <- httr::GET(endpoint, query = params)
+  result <- httr::content(response, type = "application/json", encoding = "UTF-8")
 
-  if(length(columns_list) == 0) {
-    columns_list <- default_columns
+  if (httr::status_code(response) == 200) {
+    return(result['id'])
+  } else {
+    stop(result['error'])
+  }
+}
+
+query_get_status <- function(id) {
+  endpoint <- paste0(base_url, 'api/consulta/athena/status')
+  response <- httr::GET(endpoint, query = list(id=id))
+  result <- httr::content(response, type = "application/json", encoding = "UTF-8")
+
+  if (httr::status_code(response) == 200) {
+    return(result['status'])
+  } else {
+    stop(result['error'])
+  }
+}
+
+query_get_result <- function(id) {
+  endpoint <- paste0(base_url, 'api/consulta/athena/result')
+  response <- httr::GET(endpoint, query=list(id=id))
+
+  if (httr::status_code(response) == 200) {
+    result <- httr::content(response, type="text/csv", encoding = "UTF-8")
+    return(result)
+  } else {
+    result <- httr::content(response, type="application/json", encoding = "UTF-8")
+    stop(result['error'])
+  }
+}
+
+query <- function(params, cached=FALSE) {
+  query_id = query_get_id(params)
+  result <- NULL
+
+  if(cached) {
+    result <- load_from_cache(query_id)
   }
 
-  consulta <- build_request_parameters(year, uf, regional_aggregation, political_aggregation, position, columns_list, party, candidate_number)
+  if(is.null(result) || !cached) {
+    status = "RUNNING"
+    time = 1
+    while (status == "RUNNING" || status == "QUEUED") {
+      Sys.sleep(time)
+      time <- time * 2
 
-  if(cached){
-    data <- load_from_cache(consulta)
+      status <- query_get_status(query_id)
+    }
+
+    result <- query_get_result(query_id)
   }
 
-  if(is.null(data) || !cached){
-    resp <- httr::GET(build_request_url(endpoint), query = consulta)
-    data <- httr::content(resp, type = "text/csv", encoding = "UTF-8")
+  if(cached) {
+    save_on_cache(query_id, result)
   }
 
-  if(cached){
-    save_on_cache(request = consulta, data)
+  if (!is.null(result)) {
+    names(result) <- toupper(names(result))
   }
 
-  names(data) <- toupper(names(data))
-
-  return(data)
+  return(result)
 }
