@@ -102,7 +102,7 @@ Example:
 ```{r}
 columns <- list("NUMERO_CANDIDATO","UF","QTDE_VOTOS","COD_MUN_IBGE")
 
-data <- votes(year = 2014, position=1, regional_aggregation="Municipality", columns_list=columns)
+data <- get_votes(year = 2014, position=1, regional_aggregation="Municipality", columns_list=columns)
 ```
 
 ### Filters
@@ -110,11 +110,11 @@ To limit the size of the data returned by the API, the request can be filtered t
 
 For example:
 ```{r}
-data <- cepespdata(year = 2014, position=1, regional_aggregation=2, political_aggregation=2, state="RS") #To select Rio Grande do Sul 
+data <- get_elections(year = 2014, position=1, regional_aggregation=2, political_aggregation=2, state="RS") #To select Rio Grande do Sul 
 
-data <- cepespdata(year = 2014, position=1, regional_aggregation=2, political_aggregation=2, party=13) #To select the PT (=13)
+data <- get_elections(year = 2014, position=1, regional_aggregation=2, political_aggregation=2, party=13) #To select the PT (=13)
 
-data <- cepespdata(year = 2014, position=1, regional_aggregation=2, political_aggregation=2, candidate=2511) #To select candidate 2511
+data <- get_elections(year = 2014, position=1, regional_aggregation=2, political_aggregation=2, candidate=2511) #To select candidate 2511
 ```
 **Important:** When requesting data with `regional_aggregation=9`, the filter `state` should not be `NULL`
 
@@ -124,7 +124,7 @@ Each time a request is made to the cepesp-R API, the specific dataset is constru
 Note that if you use this feature the app will create a sub-directory `/static/cache` of your working directory to store the downloaded data. You can manually delete this data to force a new download the next time the same request is made. 
 
 ```{r, eval=FALSE}
-data <- votes(year = 2014, position=1, regional_aggregation="Municipality", cached=TRUE)
+data <- get_votes(year = 2014, position=1, regional_aggregation="Municipality", cached=TRUE)
 ```
 
 
