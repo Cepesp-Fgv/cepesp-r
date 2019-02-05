@@ -18,7 +18,7 @@ library(cepespR)
 
 ### Core Functionality
 
-After loading the cepesp-R package into your R session there are four functions which retrieve alternative slices of the processed TSE data. Each which will return a data.frame of the requested election details. The four functions are:
+After loading the cepesp-R package into your R session there are four functions which retrieve alternative slices of the processed TSE data. Each which will return a data.frame of the requested election details. The following get_* functions don't provide default values for __year__ and __position__. The four functions are:
 
 1. `get_votes` - Details about the number of votes won by each candidate in a specific election. Just specify the position and year of the electoral contest you want data for, and the regional level at which you would like votes to be aggregated. For example, should Presidential election results be returned as national totals for all of Brazil, or separately for each municipality?
 
@@ -45,19 +45,6 @@ get_elections(year=2014, position="President", regional_aggregation="Municipalit
 ```
 
 The structure of the resulting data.frame has one row for each unit of regional aggregation and for each unit of political aggregation (for example, for each candidate in each municipality or each party in each state).
-
-#### New Functions
-
-Aiming for readability, the functions were renamed as follows.
-
-| old version | newer version   |
-| ----------- |-----------------| 
-| cepespdata  | get_elections   |
-| votos       | get_votos       |
-| candidates  | get_candidates  | 
-| coalitions  | get_coalitions  |
-
-They have the same functionality of their old versions, with one small difference. The get_* functions dont provide default values for __year__ and __position__.
 
 ### Parameters
 
