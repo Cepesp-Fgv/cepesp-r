@@ -20,28 +20,28 @@ library(cepespR)
 
 After loading the cepesp-R package into your R session there are four functions which retrieve alternative slices of the processed TSE data. Each which will return a data.frame of the requested election details. The four functions are:
 
-1. `votes` - Details about the number of votes won by each candidate in a specific election. Just specify the position and year of the electoral contest you want data for, and the regional level at which you would like votes to be aggregated. For example, should Presidential election results be returned as national totals for all of Brazil, or separately for each municipality?
+1. `get_votes` - Details about the number of votes won by each candidate in a specific election. Just specify the position and year of the electoral contest you want data for, and the regional level at which you would like votes to be aggregated. For example, should Presidential election results be returned as national totals for all of Brazil, or separately for each municipality?
 
 ``` {.r}
-votes(year=2014, position="President", regional_aggregation="Municipality")
+get_votes(year=2014, position="President", regional_aggregation="Municipality")
 ```
 
-2. `candidates` - Details about the characteristics of individual candidates competing in an election. Just specify the position and year for which you want data.
+2. `get_candidates` - Details about the characteristics of individual candidates competing in an election. Just specify the position and year for which you want data.
 
 ``` {.r}
-candidates(year=2014, position="President")
+get_candidates(year=2014, position="President")
 ```
 
-3. `coalitions` - Details about the parties that constitute each coalition that competed in each election. Just specify the position and year for which you want data.
+3. `get_coalitions` - Details about the parties that constitute each coalition that competed in each election. Just specify the position and year for which you want data.
 
 ``` {.r}
-coalitions(year=2014, position="President")
+get_coalitions(year=2014, position="President")
 ```
 
-4. `cepespdata` - The most comprehensive function which merges data on election results, candidates and coalitions to enable more complex analysis. However, the merges performed here remain imperfect due to errors in the underlying TSE data and so this function should be treated as beta and used with caution. Specify the position and year for which you want data, the regional aggregation at which votes should be summed, and the political aggregation at which votes should be disaggregated - by individual candidates, parties, coalitions, or as totals for each electoral unit.
+4. `get_elections` - The most comprehensive function which merges data on election results, candidates and coalitions to enable more complex analysis. However, the merges performed here remain imperfect due to errors in the underlying TSE data and so this function should be treated as beta and used with caution. Specify the position and year for which you want data, the regional aggregation at which votes should be summed, and the political aggregation at which votes should be disaggregated - by individual candidates, parties, coalitions, or as totals for each electoral unit.
 
 ``` {.r}
-cepespdata(year=2014, position="President", regional_aggregation="Municipality", political_aggregation="Candidate")
+get_elections(year=2014, position="President", regional_aggregation="Municipality", political_aggregation="Candidate")
 ```
 
 The structure of the resulting data.frame has one row for each unit of regional aggregation and for each unit of political aggregation (for example, for each candidate in each municipality or each party in each state).
