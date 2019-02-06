@@ -4,7 +4,7 @@
 base_url    <- "http://cepesp.io/"
 dev_base_url <- "http://test.cepesp.io/"
 #dev_base_url   <- "http://127.0.0.1:5000/"
-api_version <- "1.0.0"
+api_version <- "1.0.1"
 
 load_from_cache <- function(query_id) {
   if(file.exists(query_id)){
@@ -45,7 +45,9 @@ build_params <- function(table, year, uf, regional_aggregation, political_aggreg
   params <- add_filter(params, "NUMERO_CANDIDATO", candidate_number)
   params <- append(params, list(r_ver=api_version))
   params <- append(params, list(table=table))
-  params <- append(params, list(only_elected=only_elected))
+  if (only_elected) {
+    params <- append(params, list(only_elected=1))
+  }
 
   return(params)
 }
