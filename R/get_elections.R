@@ -93,7 +93,7 @@
 #'                       regional_aggregation = "State",
 #'                       political_aggregation = "Party")
 #' }
-get_elections <- function(year, position, state="all", regional_aggregation="Municipality", political_aggregation="Candidate", cached=FALSE, columns_list=list(), party=NULL, candidate_number=NULL) {
+get_elections <- function(year, position, state="all", regional_aggregation="Municipality", political_aggregation="Candidate", cached=FALSE, columns_list=list(), party=NULL, candidate_number=NULL, only_elected=FALSE, dev=FALSE) {
 
   regional_aggregation <- switch_regional_aggregation(regional_aggregation)
   political_aggregation <- switch_political_aggregation(political_aggregation)
@@ -116,14 +116,15 @@ get_elections <- function(year, position, state="all", regional_aggregation="Mun
       columns_list          = columns_list,
       party                 = party,
       candidate_number      = candidate_number,
-      default_columns       = columns(regional_aggregation, political_aggregation)
-    ), cached)
+      default_columns       = columns(regional_aggregation, political_aggregation),
+      only_elected          = only_elected
+    ), cached, dev)
   )
 }
 
 #' @rdname get_elections
 #' @export
-get_votes <- function(year, position, regional_aggregation="Municipality", state="all", cached=FALSE, columns_list=list(), party=NULL, candidate_number=NULL) {
+get_votes <- function(year, position, regional_aggregation="Municipality", state="all", cached=FALSE, columns_list=list(), party=NULL, candidate_number=NULL, dev=FALSE) {
   prev_reg <- regional_aggregation
   regional_aggregation <- switch_regional_aggregation(regional_aggregation)
   position <- switch_position(position)
@@ -143,13 +144,13 @@ get_votes <- function(year, position, regional_aggregation="Municipality", state
       party                 = party,
       candidate_number      = candidate_number,
       default_columns       = columns_votes_sec(regional_aggregation)
-    ), cached)
+    ), cached, dev)
   )
 }
 
 #' @rdname get_elections
 #' @export
-get_candidates <- function(year, position, cached=FALSE, columns_list=list(), party=NULL, candidate_number=NULL) {
+get_candidates <- function(year, position, cached=FALSE, columns_list=list(), party=NULL, candidate_number=NULL, only_elected=FALSE, dev=FALSE) {
   position <- switch_position(position)
   return (
     query(build_params(
@@ -162,14 +163,15 @@ get_candidates <- function(year, position, cached=FALSE, columns_list=list(), pa
       columns_list          = columns_list,
       party                 = party,
       candidate_number      = candidate_number,
-      default_columns       = columns_candidates()
-    ), cached)
+      default_columns       = columns_candidates(),
+      only_elected          = only_elected
+    ), cached, dev)
   )
 }
 
 #' @rdname get_elections
 #' @export
-get_coalitions <- function(year, position, cached=FALSE, columns_list=list(), party=NULL) {
+get_coalitions <- function(year, position, cached=FALSE, columns_list=list(), party=NULL, dev=FALSE) {
   position <- switch_position(position)
   return (
     query(build_params(
@@ -182,6 +184,6 @@ get_coalitions <- function(year, position, cached=FALSE, columns_list=list(), pa
       columns_list          = columns_list,
       party                 = party,
       default_columns       = columns_political_parties()
-    ), cached)
+    ), cached, dev)
   )
 }
