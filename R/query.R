@@ -43,7 +43,6 @@ build_params <- function(table, year, uf, regional_aggregation, political_aggreg
 
   params <- add_filter(params, "NUMERO_PARTIDO", party)
   params <- add_filter(params, "NUMERO_CANDIDATO", candidate_number)
-  params <- append(params, list(r_ver=api_version))
   params <- append(params, list(table=table))
   if (only_elected) {
     params <- append(params, list(only_elected=1))
@@ -163,7 +162,11 @@ query_get_status <- function(id, dev=FALSE) {
 query_get_result <- function(id, dev=FALSE) {
   base <- if(dev) dev_base_url else base_url
   endpoint <- paste0(base, 'api/consulta/athena/result')
-  response <- httr::GET(endpoint, query=list(id=id))
+  if (dev) {
+    response <- httr::GET(endpoint, query=list(id=id))
+  } else {
+    response <- httr::GET(endpoint, query=list(id=id, r_ver=api_version))
+  }
 
   if (httr::status_code(response) == 200) {
     result <- httr::content(response, type="text/csv", encoding = "UTF-8")
