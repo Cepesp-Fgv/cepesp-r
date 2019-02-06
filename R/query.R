@@ -1,10 +1,10 @@
 #' @import stats
 #' @import utils
 
-#base_url   <- "http://127.0.0.1:5000/"
 base_url    <- "http://cepesp.io/"
+dev_base_url <- "http://test.cepesp.io/"
+#dev_base_url   <- "http://127.0.0.1:5000/"
 api_version <- "1.0.0"
-
 
 load_from_cache <- function(query_id) {
   if(file.exists(query_id)){
@@ -28,7 +28,7 @@ hash_r <- function(request, extension=".gz") {
   return(paste0(folder, digest::digest(do.call(paste, c(as.list(request), sep=""))), extension))
 }
 
-build_params <- function(table, year, uf, regional_aggregation, political_aggregation = NULL, position, columns_list, default_columns=list(), party=NULL, candidate_number=NULL) {
+build_params <- function(table, year, uf, regional_aggregation, political_aggregation = NULL, position, columns_list, default_columns=list(), party=NULL, candidate_number=NULL, only_elected=FALSE) {
 
   if(length(columns_list) == 0) {
     columns_list <- default_columns
@@ -45,6 +45,7 @@ build_params <- function(table, year, uf, regional_aggregation, political_aggreg
   params <- add_filter(params, "NUMERO_CANDIDATO", candidate_number)
   params <- append(params, list(r_ver=api_version))
   params <- append(params, list(table=table))
+  params <- append(params, list(only_elected=only_elected))
 
   return(params)
 }
@@ -131,8 +132,9 @@ switch_position <- function(text) {
 
 }
 
-query_get_id <- function(params) {
-  endpoint <- paste0(base_url, 'api/consulta/athena/query')
+query_get_id <- function(params, dev=FALSE) {
+  base <- if(dev) dev_base_url else base_url
+  endpoint <- paste0(base, 'api/consulta/athena/query')
   response <- httr::GET(endpoint, query = params)
   result <- httr::content(response, type = "application/json", encoding = "UTF-8")
 
@@ -143,8 +145,9 @@ query_get_id <- function(params) {
   }
 }
 
-query_get_status <- function(id) {
-  endpoint <- paste0(base_url, 'api/consulta/athena/status')
+query_get_status <- function(id, dev=FALSE) {
+  base <- if(dev) dev_base_url else base_url
+  endpoint <- paste0(base, 'api/consulta/athena/status')
   response <- httr::GET(endpoint, query = list(id=id))
   result <- httr::content(response, type = "application/json", encoding = "UTF-8")
 
@@ -155,8 +158,9 @@ query_get_status <- function(id) {
   }
 }
 
-query_get_result <- function(id) {
-  endpoint <- paste0(base_url, 'api/consulta/athena/result')
+query_get_result <- function(id, dev=FALSE) {
+  base <- if(dev) dev_base_url else base_url
+  endpoint <- paste0(base, 'api/consulta/athena/result')
   response <- httr::GET(endpoint, query=list(id=id))
 
   if (httr::status_code(response) == 200) {
@@ -168,8 +172,8 @@ query_get_result <- function(id) {
   }
 }
 
-query <- function(params, cached=FALSE) {
-  query_id = query_get_id(params)
+query <- function(params, cached=FALSE, dev=FALSE) {
+  query_id = query_get_id(params, dev)
   result <- NULL
 
   if(cached) {
@@ -183,10 +187,10 @@ query <- function(params, cached=FALSE) {
       Sys.sleep(time)
       time <- time * 2
 
-      status <- query_get_status(query_id)
+      status <- query_get_status(query_id, dev)
     }
 
-    result <- query_get_result(query_id)
+    result <- query_get_result(query_id, dev)
   }
 
   if(cached) {
