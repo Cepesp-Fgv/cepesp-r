@@ -38,7 +38,7 @@ get_candidates(year=2014, position="President")
 get_coalitions(year=2014, position="President")
 ```
 
-4. `get_elections` - The most comprehensive function which merges data on election results, candidates and coalitions to enable more complex analysis. However, the merges performed here remain imperfect due to errors in the underlying TSE data and so this function should be treated as beta and used with caution. Specify the position and year for which you want data, the regional aggregation at which votes should be summed, and the political aggregation at which votes should be disaggregated - by individual candidates, parties, coalitions, or as totals for each electoral unit.
+4. `get_elections` - The most comprehensive function which merges data on election results, candidates and coalitions to enable more complex analysis. However, the merges performed here remain imperfect due to errors in the underlying TSE data and so this function should be treated as beta and used with caution. Specify the position and year for which you want data, the regional aggregation at which votes should be summed, and the political aggregation at which votes should be disaggregated - by individual candidates, parties, coalitions, or as totals for each electoral unit. It's also possible to filter the dataframe in order to return only the data concerning elected candidates using the option only_elected = TRUE.
 
 ``` {.r}
 get_elections(year=2014, position="President", regional_aggregation="Municipality", political_aggregation="Candidate")
