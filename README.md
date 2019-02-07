@@ -26,12 +26,12 @@ After loading the cepesp-R package into your R session there are four functions 
 get_votes(year=2014, position="President", regional_aggregation="Municipality")
 ```
 
-2. `get_candidates` - Details about the characteristics of individual candidates competing in an election. Just specify the position and year for which you want data.
+2. `get_candidates` - Details about the characteristics of individual candidates competing in an election. Just specify the position and year for which you want data. It's also possible to filter the dataframe in order to return only the data concerning elected candidates using the option only_elected = TRUE (default option is only_elected = FALSE).
 
 ``` {.r}
 get_candidates(year=2014, position="President")
 ```
-It's also possible to filter the dataframe in order to return only the data concerning elected candidates using the option only_elected = TRUE in this function (default option is only_elected = FALSE).
+
 
 3. `get_coalitions` - Details about the parties that constitute each coalition that competed in each election. Just specify the position and year for which you want data.
 
@@ -39,13 +39,13 @@ It's also possible to filter the dataframe in order to return only the data conc
 get_coalitions(year=2014, position="President")
 ```
 
-4. `get_elections` - The most comprehensive function which merges data on election results, candidates and coalitions to enable more complex analysis. However, the merges performed here remain imperfect due to errors in the underlying TSE data and so this function should be treated as beta and used with caution. Specify the position and year for which you want data, the regional aggregation at which votes should be summed, and the political aggregation at which votes should be disaggregated - by individual candidates, parties, coalitions, or as totals for each electoral unit. It's also possible to filter the dataframe in order to return only the data concerning elected candidates using the option only_elected = TRUE (default option is only_elected = FALSE).
+4. `get_elections` - The most comprehensive function which merges data on election results, candidates and coalitions to enable more complex analysis. However, the merges performed here remain imperfect due to errors in the underlying TSE data and so this function should be treated as beta and used with caution. Specify the position and year for which you want data, the regional aggregation at which votes should be summed, and the political aggregation at which votes should be disaggregated - by individual candidates, parties, coalitions, or as totals for each electoral unit. The parameter only-elected is also available for this function (see #2 get_candidates).
 
 ``` {.r}
 get_elections(year=2014, position="President", regional_aggregation="Municipality", political_aggregation="Candidate")
 ```
 
-The structure of the resulting data.frame has one row for each unit of regional aggregation and for each unit of political aggregation (for example, for each candidate in each municipality or each party in each state). In all the get_* functions above the parameter "dev" is available. The option dev = TRUE allows the user to access the testing server while dev = FALSE is the default option.
+The structure of the resulting data.frame has one row for each unit of regional aggregation and for each unit of political aggregation (for example, for each candidate in each municipality or each party in each state). The parameter "dev" is available in all the functions above. The option dev = TRUE directs the API towards the testing server while dev = FALSE is the default option.
 
 ### Parameters
 
