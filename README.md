@@ -45,7 +45,7 @@ get_coalitions(year=2014, position="President")
 get_elections(year=2014, position="President", regional_aggregation="Municipality", political_aggregation="Candidate")
 ```
 
-The structure of the resulting data.frame has one row for each unit of regional aggregation and for each unit of political aggregation (for example, for each candidate in each municipality or each party in each state). The parameter "dev" is available in all the functions above. The option dev = TRUE directs the API towards the testing server while dev = FALSE is the default option.
+The structure of the resulting data.frame has one row for each unit of regional aggregation and for each unit of political aggregation (for example, for each candidate in each municipality or each party in each state).
 
 ### Parameters
 
