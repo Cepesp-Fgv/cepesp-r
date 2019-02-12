@@ -4,7 +4,7 @@
 base_url    <- "http://cepesp.io/"
 dev_base_url <- "http://test.cepesp.io/"
 #dev_base_url   <- "http://127.0.0.1:5000/"
-api_version <- "1.0.1"
+api_version <- "1.0.2"
 
 load_from_cache <- function(query_id) {
   if(file.exists(query_id)){
@@ -193,6 +193,11 @@ query <- function(params, cached=FALSE, dev=FALSE) {
       time <- time * 2
 
       status <- query_get_status(query_id, dev)
+
+      # wait a few more seconds before next checkup
+      if (time == 2 && (status == "RUNNING" || status == "QUEUED")) {
+        time <- 32
+      }
     }
 
     result <- query_get_result(query_id, dev)
