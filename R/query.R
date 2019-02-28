@@ -2,8 +2,8 @@
 #' @import utils
 
 base_url    <- "http://cepesp.io/"
-#dev_base_url <- "http://test.cepesp.io/"
-dev_base_url   <- "http://127.0.0.1:5000/"
+dev_base_url <- "http://test.cepesp.io/"
+#dev_base_url   <- "http://127.0.0.1:5000/"
 api_version <- "1.0.2"
 
 load_from_cache <- function(query_id) {
@@ -162,11 +162,7 @@ query_get_status <- function(id, dev=FALSE) {
 query_get_result <- function(id, dev=FALSE) {
   base <- if(dev) dev_base_url else base_url
   endpoint <- paste0(base, 'api/consulta/athena/result')
-  if (dev) {
-    response <- httr::GET(endpoint, query=list(id=id))
-  } else {
-    response <- httr::GET(endpoint, query=list(id=id, r_ver=api_version))
-  }
+  response <- httr::GET(endpoint, query=list(id=id, r_ver=api_version))
 
   if (httr::status_code(response) == 200) {
     result <- httr::content(response, type="text/csv", encoding = "UTF-8")
