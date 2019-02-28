@@ -2,8 +2,8 @@
 #' @import utils
 
 base_url    <- "http://cepesp.io/"
-dev_base_url <- "http://test.cepesp.io/"
-#dev_base_url   <- "http://127.0.0.1:5000/"
+#dev_base_url <- "http://test.cepesp.io/"
+dev_base_url   <- "http://127.0.0.1:5000/"
 api_version <- "1.0.2"
 
 load_from_cache <- function(query_id) {

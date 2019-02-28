@@ -3,3 +3,4 @@
 .RData
 .Ruserdata
 /static/*
+.DS_Store
