@@ -171,7 +171,7 @@ get_candidates <- function(year, position, cached=FALSE, columns_list=list(), pa
 
 #' @rdname get_elections
 #' @export
-get_coalitions <- function(year, position, cached=FALSE, columns_list=list(), party=NULL, dev=FALSE) {
+get_coalitions <- function(year, position, columns_list=list(), party=NULL, cached=FALSE, dev=FALSE) {
   position <- switch_position(position)
   return (
     query(build_params(
@@ -184,6 +184,24 @@ get_coalitions <- function(year, position, cached=FALSE, columns_list=list(), pa
       columns_list          = columns_list,
       party                 = party,
       default_columns       = columns_political_parties()
+    ), cached, dev)
+  )
+}
+
+#' @rdname get_bens_candidatos
+#' @export
+get_bens_candidatos <- function(year, state="all", columns_list=list(), cached=FALSE, dev=FALSE) {
+  return (
+    query(build_params(
+      table                 = "bem_candidato",
+      year                  = year,
+      uf                    = state,
+      regional_aggregation  = 0,
+      political_aggregation = 0,
+      position              = 0,
+      columns_list          = columns_list,
+      party                 = NULL,
+      default_columns       = columns_bens_candidatos()
     ), cached, dev)
   )
 }
