@@ -188,9 +188,9 @@ get_coalitions <- function(year, position, columns_list=list(), party=NULL, cach
   )
 }
 
-#' @rdname get_bens_candidatos
+#' @rdname get_assets
 #' @export
-get_bens_candidatos <- function(year, state="all", columns_list=list(), cached=FALSE, dev=FALSE) {
+get_assets <- function(year, state="all", columns_list=list(), cached=FALSE, dev=FALSE) {
   return (
     query(build_params(
       table                 = "bem_candidato",
