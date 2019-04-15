@@ -79,7 +79,7 @@ The same parameters can also be entered in Portuguese:
 | 2014        |                 | Votação Seção         |                       |
 | 2016        |                 |                       |                       |
 
-Deputies for the Federal District (DF) are included in the data base as State Deputies and can be obtained through the argument  ``` {.r} position="State Deputy"```.
+Deputies for the Federal District (DF) are included in the data base as State Deputies and can be obtained through the argument  `position="State Deputy"`.
 
 Not all electoral contests occur in every year. Feasible requests are:
 
