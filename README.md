@@ -79,21 +79,22 @@ The same parameters can also be entered in Portuguese:
 | 2014        |                 | Votação Seção         |                       |
 | 2016        |                 |                       |                       |
 
+Deputies for the Federal District (DF) are included in the data base as State Deputies and can be obtained through the argument position="State Deputy".
+
 Not all electoral contests occur in every year. Feasible requests are:
 
 | Ano      | Cargos Disponíveis (Descrição) | 
 | ------------------------- |:------|
-| 1998                |   Presidente, Governador, Senador, Deputado Federal, Deputado Estadual, Deputado Distrital   | 
+| 1998                |   Presidente, Governador, Senador, Deputado Federal, Deputado Estadual    |
 | 2000                |   Prefeito, Vereador    | 
-| 2002                |   Presidente, Governador, Senador, Deputado Federal, Deputado Estadual, Deputado Distrital    |
+| 2002                |   Presidente, Governador, Senador, Deputado Federal, Deputado Estadual    |
 | 2004                |   Prefeito, Vereador    | 
-| 2006                |   Presidente, Governador, Senador, Deputado Federal, Deputado Estadual, Deputado Distrital    |
+| 2006                |   Presidente, Governador, Senador, Deputado Federal, Deputado Estadual    |
 | 2008                |   Prefeito, Vereador    | 
-| 2010                |   Presidente, Governador, Senador, Deputado Federal, Deputado Estadual, Deputado Distrital    | 
+| 2010                |   Presidente, Governador, Senador, Deputado Federal, Deputado Estadual    | 
 | 2012                |   Prefeito, Vereador    | 
-| 2014                |   Presidente, Governador, Senador, Deputado Federal, Deputado Estadual, Deputado Distrital    | 
+| 2014                |   Presidente, Governador, Senador, Deputado Federal, Deputado Estadual    | 
 | 2016                |   Prefeito, Vereador    | 
-
 
 
 ### Selecting Variables
