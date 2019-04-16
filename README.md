@@ -50,6 +50,7 @@ The structure of the resulting data.frame has one row for each unit of regional 
 ### Parameters
 
 The table below highlights the available options for each required parameter:
+
 | year |
 |------|
 |1998  |
@@ -86,36 +87,59 @@ The table below highlights the available options for each required parameter:
 | Zone |
 | Electoral Section |
 
+| political_aggregation |
+|-----------------------|
+| Candidate             |
+| Party                 |
+| Coalition             |
+| Consolidated          |
 
-
-
-| year        | position        | regional_aggregation  | political_aggregation |
-| ----------- |-----------------| ----------------------| ----------------------|
-| 1998        | Councillor      | Brazil                | Candidate             |
-| 2000        | Mayor           | Macro                 | Party                 |
-| 2002        | State Deputy    | State                 | Coalition             |
-| 2004        | Federal Deputy  | Meso                  | Consolidated          |
-| 2006        | Senator         | Micro                 |                       |
-| 2008        | Governor        | Municipality          |                       |
-| 2010        | President       | Municipality-Zone     |                       |
-| 2012        |                 | Zone                  |                       |
-| 2014        |                 | Electoral Section     |                       |
-| 2016        |                 |                       |                       |
 
 The same parameters can also be entered in Portuguese:
 
-| year        | position        | regional_aggregation  | political_aggregation |
-| ----------- |-----------------| ----------------------| ----------------------|
-| 1998        | Vereador      | Brasil                | Candidato             |
-| 2000        | Prefeito          | Macro                 | Partido                 |
-| 2002        | Deputado Estadual    | Estado                 | Coligacao             |
-| 2004        | Deputado Federal  | Meso                  | Consolidado          |
-| 2006        | Senador         | Micro                 |                       |
-| 2008        | Governador        | Municipio          |                       |
-| 2010        | Presidente       | Municipio-Zona     |                       |
-| 2012        |                 | Zona                  |                       |
-| 2014        |                 | Votação Seção         |                       |
-| 2016        |                 |                       |                       |
+| year |
+|------|
+|1998  |
+|2000  |
+|2002  |
+|2004  |
+|2006  |
+|2008  |
+|2010  |
+|2012  |
+|2014  |
+|2016  |
+|2018  |
+
+| position       |
+|----------------|
+| Vereador     |
+| Prefeito          |
+| Deputado Estadual   |
+| Deputado Federal |
+| Senador       |
+| Governador       |
+| Presidente      |
+
+| regional_aggregation  |
+|-----------------------|
+| Brasil |
+| Macro |
+| Estado |
+| Meso |
+| Micro |
+| Municipio |
+| Municipio-Zona |
+| Zona |
+| Votação Seção |
+
+| political_aggregation |
+|-----------------------|
+| Candidato             |
+| Partido               |
+| Coaligacao            |
+| Consolidado           |
+
 
 Deputies for the Federal District (DF) are included in the data base as State Deputies and can be obtained through the argument  `position="State Deputy"`.
 
