@@ -49,84 +49,24 @@ The structure of the resulting data.frame has one row for each unit of regional 
 
 ### Parameters
 
-The tables below highlights the available options for each required parameter:
+Check below the available options for each required parameter:
 
 year: `1998`, `2000`, `2002`, `2004`, `2006`, `2008`, `2010`, `2012`, `2014`, `2016`, `2018`.
 
-|------|
-|1998  |
-|2000  |
-|2002  |
-|2004  |
-|2006  |
-|2008  |
-|2010  |
-|2012  |
-|2014  |
-|2016  |
-|2018  |
+position: `Councillor`, `Mayor`, `State Deputy`, `Federal Deputy`, `Senator`, `Governor`, `President`.
 
-| position       |
-|----------------|
-| Councillor     |
-| Mayor          |
-| State Deputy   |
-| Federal Deputy |
-| Senator        |
-| Governor       |
-| President      |
+regional_aggregation: `Brazil`, `Macro`, `State`, `Meso`, `Micro`, `Municipality`, `Municipality-Zone`, `Zone`, `Electoral Section`
 
-| regional_aggregation  |
-|-----------------------|
-| Brazil |
-| Macro |
-| State |
-| Meso |
-| Micro |
-| Municipality |
-| Municipality-Zone |
-| Zone |
-| Electoral Section |
-
-| political_aggregation |
-|-----------------------|
-| Candidate             |
-| Party                 |
-| Coalition             |
-| Consolidated          |
+political_aggregation: `Candidate`, `Party`, `Coalition`, `Consolidated`.
 
 
 The same parameters can also be entered in Portuguese:
 
-| position       |
-|----------------|
-| Vereador     |
-| Prefeito          |
-| Deputado Estadual   |
-| Deputado Federal |
-| Senador       |
-| Governador       |
-| Presidente      |
+position: `Vereador`, `Prefeito`, `Deputado Estadual`, `Deputado Federal`, `Senador`, `Governador`, `Presidente`.
 
-| regional_aggregation  |
-|-----------------------|
-| Brasil |
-| Macro |
-| Estado |
-| Meso |
-| Micro |
-| Municipio |
-| Municipio-Zona |
-| Zona |
-| Votação Seção |
+regional_aggregation: `Brasil`, `Macro`, `Estado`,`Meso`,`Micro`, `Municipio`, `Municipio-Zona`, `Zona`, `Votação Seção`.
 
-| political_aggregation |
-|-----------------------|
-| Candidato             |
-| Partido               |
-| Coaligacao            |
-| Consolidado           |
-
+political_aggregation: `Candidato`, `Partido`, `Coaligacao`, `Consolidado`.
 
 Deputies for the Federal District (DF) are included in the data base as State Deputies and can be obtained through the argument  `position="State Deputy"`.
 
