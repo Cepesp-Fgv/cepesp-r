@@ -49,7 +49,7 @@ The structure of the resulting data.frame has one row for each unit of regional 
 
 ### Parameters
 
-The table below highlights the available options for each required parameter:
+The tables below highlights the available options for each required parameter:
 
 | year |
 |------|
@@ -96,20 +96,6 @@ The table below highlights the available options for each required parameter:
 
 
 The same parameters can also be entered in Portuguese:
-
-| year |
-|------|
-|1998  |
-|2000  |
-|2002  |
-|2004  |
-|2006  |
-|2008  |
-|2010  |
-|2012  |
-|2014  |
-|2016  |
-|2018  |
 
 | position       |
 |----------------|
