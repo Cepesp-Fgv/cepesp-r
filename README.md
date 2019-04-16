@@ -50,6 +50,44 @@ The structure of the resulting data.frame has one row for each unit of regional 
 ### Parameters
 
 The table below highlights the available options for each required parameter:
+| year |
+|------|
+|1998  |
+|2000  |
+|2002  |
+|2004  |
+|2006  |
+|2008  |
+|2010  |
+|2012  |
+|2014  |
+|2016  |
+|2018  |
+
+| position       |
+|----------------|
+| Councillor     |
+| Mayor          |
+| State Deputy   |
+| Federal Deputy |
+| Senator        |
+| Governor       |
+| President      |
+
+| regional_aggregation  |
+|-----------------------|
+| Brazil |
+| Macro |
+| State |
+| Meso |
+| Micro |
+| Municipality |
+| Municipality-Zone |
+| Zone |
+| Electoral Section |
+
+
+
 
 | year        | position        | regional_aggregation  | political_aggregation |
 | ----------- |-----------------| ----------------------| ----------------------|
