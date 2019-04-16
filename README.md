@@ -51,7 +51,9 @@ The structure of the resulting data.frame has one row for each unit of regional 
 
 The tables below highlights the available options for each required parameter:
 
-| year |
+| year | 1998 |
+
+
 |------|
 |1998  |
 |2000  |
