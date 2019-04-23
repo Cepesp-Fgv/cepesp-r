@@ -47,6 +47,13 @@ get_elections(year=2014, position="President", regional_aggregation="Municipalit
 
 The structure of the resulting data.frame has one row for each unit of regional aggregation and for each unit of political aggregation (for example, for each candidate in each municipality or each party in each state).
 
+
+5. `get_assets` - Returns the details about assets or goods declared by the candidates in each election. The only mandatory parameter to specify is `year`. Optional parameters are `state` and `columns_list`.
+
+``` {.r}
+get_assets(year = 2014, state = "AC", columns_list = columns)
+```
+
 ### Parameters
 
 Check below the available options for each required parameter:
