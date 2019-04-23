@@ -62,7 +62,7 @@ Check below the available options for each required parameter:
 
 - position: `Councillor`, `Mayor`, `State Deputy`, `Federal Deputy`, `Senator`, `Governor`, `President`.
 
-- regional_aggregation: `Brazil`, `Macro`, `State`, `Meso`, `Micro`, `Municipality`, `Municipality-Zone`, `Zone`, `Electoral Section`
+- regional_aggregation: `Brazil`, `Macro`, `State`, `Meso`, `Micro`, `Municipality`, `Municipality-Zone`, `Zone`, `Electoral Section`.
 
 - political_aggregation: `Candidate`, `Party`, `Coalition`, `Consolidated`.
 
