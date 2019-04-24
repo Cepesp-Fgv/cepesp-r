@@ -54,6 +54,7 @@ The structure of the resulting data.frame has one row for each unit of regional 
 get_assets(year = 2014, state = "AC", columns_list = list('CODIGO_CARGO','NOME_CANDIDATO','CPF_CANDIDATO','VALOR_BEM'))            
 ```
 
+
 ### Parameters
 
 Check below the available options for each required parameter:
@@ -125,4 +126,6 @@ Note that if you use this feature the app will create a sub-directory `/static/c
 data <- get_votes(year = 2014, position=1, regional_aggregation="Municipality", cached=TRUE)
 ```
 
+### Final Note
 
+Remember that all the data returned by the functions above are filtered for apt candidacies (candidacies approved by TSE). Thus, you may find a slightly smaller number of observations in CepespData/FGV datasets than in the original TSE files. (The documentation on the filtering process can be found on the following link: https://github.com/Cepesp-Fgv/tse-dados/blob/a28c237bcca0270840a39184e5a98322d3443e60/CepespData/etl/process/VotesVotsecProcess.py#L53).
