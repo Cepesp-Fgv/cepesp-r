@@ -128,6 +128,6 @@ data <- get_votes(year = 2014, position=1, regional_aggregation="Municipality", 
 
 ### Final Note
 
-Remember that all the data returned by the functions above are filtered for apt candidacies (candidacies approved by TSE). Thus, you may find a slightly smaller number of observations in CepespData/FGV datasets than in the original TSE files. 
+Remember that all the data returned by the functions above is filtered for apt candidacies (candidacies approved by TSE). Thus, you may find a slightly smaller number of observations in CepespData/FGV datasets than in the original TSE files. 
 
 The documentation on the filtering process can be found on: https://github.com/Cepesp-Fgv/tse-dados/blob/a28c237bcca0270840a39184e5a98322d3443e60/CepespData/etl/process/VotesVotsecProcess.py#L53.
