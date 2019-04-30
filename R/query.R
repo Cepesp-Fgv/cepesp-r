@@ -63,8 +63,6 @@ build_params <- function(table, year, uf, regional_aggregation, political_aggreg
     params <- append(params, list(only_elected=1))
   }
 
-  print(params)
-
   return(params)
 }
 
