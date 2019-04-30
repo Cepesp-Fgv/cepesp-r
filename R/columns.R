@@ -437,3 +437,73 @@ columns_bens_candidatos <- function() {
 
 }
 
+columns_secretaries <- function() {
+
+  return(list(
+    "STATUS",
+    "NOME_SECRETARIO",
+    "RG",
+    "SEXO",
+    "NOME_MUNICIPIO_NASCIMENTO",
+    "UF_NASCIMENTO",
+    "CARGO",
+    "ORGAO_OCUPADO",
+    "UF_ORGAO_OCUPADO",
+    "COD_GRAU_INSTRUCAO",
+    "DESCRICAO_GRAU_INSTRUCAO",
+    "CURSO_MESTRADO",
+    "CURSO_DOUTORADO",
+    "JA_ERA_FUNCIONARIO_PUBLICO",
+    "NIVEL_DE_GOVERNO",
+    "TRABALHAVA_NA_SECRETARIA_NO_MOMENTO_DA_NOMEACAO",
+    "ORGAO_EM_QUE_TRABALHAVA",
+    "ANO_INGRESSO_ORGAO",
+    "MES_INGRESSO_ORGAO",
+    "PROFISSAO_ANTES_DE_NOMEADO",
+    "UF",
+    "ID_SECRETARIO",
+    "CPF",
+    "TITULO_DE_ELEITOR",
+    "ORGAO_NOME",
+    "ID_CARGO",
+    "ID_ORGAO",
+    "DATA_ASSUMIU",
+    "DATA_DEIXOU",
+    "MOTIVO_SAIDA",
+    "ORIGEM_FILIACAO",
+    "SIGLA_PARTIDO",
+    "NOME_PARTIDO",
+    "CODIGO_MUNICIPIO",
+    "NOME_MUNICIPIO",
+    "RACA_RAIS",
+    "DATA_NASCIMENTO"
+  ))
+
+}
+
+columns_filiates <- function() {
+
+  return(list(
+    "DATA_EXTRACAO",
+    "HORA_EXTRACAO",
+    "NUMERO_INSCRICAO",
+    "NOME_FILIADO",
+    "SIGLA_PARTIDO",
+    "NOME_PARTIDO",
+    "UF",
+    "COD_MUN_TSE",
+    "NOME_MUNICIPIO",
+    "NUM_ZONA",
+    "NUM_SECAO",
+    "DATA_FILIACAO",
+    "SITUACAO_REGISTRO",
+    "TIPO_REGISTRO",
+    "DATA_PROCESSAMENTO",
+    "DATA_DESFILIACAO",
+    "DATA_CANCELAMENTO",
+    "DATA_REGULARIZACAO",
+    "MOTIVO_CANCELAMENTO"
+  ))
+
+}
+

@@ -205,3 +205,41 @@ get_assets <- function(year, state="all", columns_list=list(), cached=FALSE, dev
     ), cached, dev)
   )
 }
+
+#' @rdname get_secretaries
+#' @export
+get_secretaries <- function(state="all", name=NULL, period=NULL, columns_list=list(), cached=FALSE, dev=FALSE) {
+  return (
+    query(build_params(
+      table                 = "secretarios",
+      year                  = 0,
+      uf                    = state,
+      name                  = name,
+      regional_aggregation  = 0,
+      political_aggregation = 0,
+      position              = 0,
+      government_period     = period,
+      columns_list          = columns_list,
+      party                 = NULL,
+      default_columns       = columns_secretaries()
+    ), cached, dev)
+  )
+}
+
+#' @rdname get_filiates
+#' @export
+get_filiates <- function(state="all", party="all", columns_list=list(), cached=FALSE, dev=FALSE) {
+  return (
+    query(build_params(
+      table                 = "filiados",
+      year                  = 0,
+      uf                    = state,
+      regional_aggregation  = 0,
+      political_aggregation = 0,
+      position              = 0,
+      columns_list          = columns_list,
+      party                 = party,
+      default_columns       = columns_filiates()
+    ), cached, dev)
+  )
+}

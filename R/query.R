@@ -28,7 +28,7 @@ hash_r <- function(request, extension=".gz") {
   return(paste0(folder, digest::digest(do.call(paste, c(as.list(request), sep=""))), extension))
 }
 
-build_params <- function(table, year, uf, regional_aggregation, political_aggregation = NULL, position, columns_list, default_columns=list(), party=NULL, candidate_number=NULL, only_elected=FALSE) {
+build_params <- function(table, year, uf, regional_aggregation, political_aggregation = NULL, position, columns_list, government_period=NULL, default_columns=list(), name=NULL, party=NULL, candidate_number=NULL, only_elected=FALSE) {
 
   if(length(columns_list) == 0) {
     columns_list <- default_columns
@@ -41,12 +41,29 @@ build_params <- function(table, year, uf, regional_aggregation, political_aggreg
     params <- append(params, list(uf_filter=uf))
   }
 
-  params <- add_filter(params, "NUMERO_PARTIDO", party)
+  if (!is.null(party) && party != "all") {
+    if (table == "filiados") {
+      params <- append(params, list(party=party))
+    } else {
+      params <- add_filter(params, "NUMERO_PARTIDO", party)
+    }
+  }
+
+  if (!is.null(government_period)) {
+    params <- append(params, list(government_period=government_period))
+  }
+
+  if (!is.null(name) && table == "secretarios") {
+    params <- append(params, list(name_filter=name))
+  }
+
   params <- add_filter(params, "NUMERO_CANDIDATO", candidate_number)
   params <- append(params, list(table=table))
   if (only_elected) {
     params <- append(params, list(only_elected=1))
   }
+
+  print(params)
 
   return(params)
 }
@@ -153,6 +170,10 @@ query_get_status <- function(id, dev=FALSE) {
   result <- httr::content(response, type = "application/json", encoding = "UTF-8")
 
   if (httr::status_code(response) == 200) {
+    if (dev) {
+      message("id: ", id,", status: ", result['status'])
+    }
+
     return(result['status'])
   } else {
     stop(result['error'])
@@ -196,7 +217,11 @@ query <- function(params, cached=FALSE, dev=FALSE) {
       }
     }
 
-    result <- query_get_result(query_id, dev)
+    if (status == "SUCCEEDED") {
+      result <- query_get_result(query_id, dev)
+    } else {
+      error("The query has failed. Please, check if your parameters are valid.")
+    }
   }
 
   if(cached) {
