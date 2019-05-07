@@ -243,3 +243,26 @@ get_filiates <- function(state="all", party="all", columns_list=list(), cached=F
     ), cached, dev)
   )
 }
+
+
+#' @rdname get_careers
+#' @export
+get_careers <- function(NOME_CANDIDATO=NULL, NOME_URNA_CANDIDATO=NULL) {
+  url = httr::modify_url("https://cepesp-app.herokuapp.com/api/dim/candidato", query= list(
+    NOME_CANDIDATO = NOME_CANDIDATO,
+    NOME_URNA_CANDIDATO = NOME_URNA_CANDIDATO
+  ))
+
+  return(jsonlite::fromJSON(url)[['data']])
+}
+
+#' @rdname get_careers_elections
+#' @export
+get_careers_elections <- function(NUM_TITULO_ELEITORAL_CANDIDATO=NULL, ID_DIM_CANDIDATO=NULL) {
+  url = httr::modify_url("https://cepesp-app.herokuapp.com/api/candidatos", query= list(
+    NUM_TITULO_ELEITORAL_CANDIDATO = NUM_TITULO_ELEITORAL_CANDIDATO,
+    ID_DIM_CANDIDATO = ID_DIM_CANDIDATO
+  ))
+
+  return(jsonlite::fromJSON(url)[['data']])
+}
