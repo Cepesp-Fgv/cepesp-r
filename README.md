@@ -106,7 +106,7 @@ Not all electoral contests occur in every year. Feasible requests are:
 
 
 ### Selecting Variables
-The default setting is for the function to return all the available variables (columns). To select specific variables and limit the size of the request, you can specify a list of required columns in the `columns_list` property. The specific columns available depend on the political and regional aggregation selected so you are advised to refer to the API documentation at https://github.com/Cepesp-Fgv/cepesp-rest for further details. 
+The default setting is for the function to return all the available variables (columns). To select specific variables and limit the size of the request, you can specify a list of required columns in the `columns_list` argument. The specific columns available depend on the political and regional aggregation selected so you are advised to refer to the documentation on the available columns at https://github.com/Cepesp-Fgv/tse-dados/wiki/Colunas and to the API documentation at https://github.com/Cepesp-Fgv/cepesp-rest for further details.
 
 Example:
 ```{r}
