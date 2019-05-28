@@ -54,6 +54,17 @@ The structure of the resulting data.frame has one row for each unit of regional 
 get_assets(year = 2014, state = "AC", columns_list = list('CODIGO_CARGO','NOME_CANDIDATO','CPF_CANDIDATO','VALOR_BEM'))            
 ```
 
+6. `get_secretaries` - Returns state, state secretary name, date of entry and exit, party affiliation and other secretaries' personal data. `name` and `state` are mandatory arguments to be filled.
+
+``` {.r}
+get_secretaries(name = 'joao', state = 'AC')
+```
+
+7. `get_filiates` - Returns the list of filiated by party and state (status corresponding to the last update in November 2018). `state` and/or `party` must be specified as arguments.
+
+``` {.r}
+get_filiates(state = 'SP', party = 'PT')
+```
 
 ### Parameters
 
