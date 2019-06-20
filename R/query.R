@@ -6,18 +6,32 @@ dev_base_url <- "http://test.cepesp.io/"
 #dev_base_url   <- "http://127.0.0.1:5000/"
 api_version <- "1.0.2"
 
-load_from_cache <- function(query_id) {
-  if(file.exists(query_id)){
-    return(read.csv(query_id, sep=",", header=T, quote = "\""))
-  } else {
-    return(NULL)
+cache_get_file <- function(query_id) {
+  fpath <- paste0(".cepespdata/", query_id, ".csv")
+
+  if (!dir.exists(".cepespdata/")) {
+    dir.create(".cepespdata/")
   }
+
+  return(fpath)
 }
 
-save_on_cache <- function(query_id, data) {
-  gz1 <- gzfile(query_id, "w")
-  write.csv(data, gz1)
-  close(gz1)
+cache_exists <- function(query_id) {
+  return(file.exists(cache_get_file(query_id)))
+}
+
+cache_read <- function(query_id) {
+  return(data.table::fread(
+    cache_get_file(query_id),
+    sep=",",
+    header=TRUE,
+    encoding="UTF-8",
+    showProgress=TRUE
+  ))
+}
+
+cache_write <- function(query_id, result) {
+  data.table::fwrite(result, file=cache_get_file(query_id), sep=",", showProgress=TRUE)
 }
 
 hash_r <- function(request, extension=".gz") {
@@ -126,7 +140,7 @@ switch_political_aggregation <- function(text) {
 switch_position <- function(text) {
 
   if (is.numeric(text))
-      return(switch_numeric(text, c(1, 3, 5, 6, 7, 8, 11, 13)))
+    return(switch_numeric(text, c(1, 3, 5, 6, 7, 8, 11, 13)))
 
   return(switch(text,
                 "President"= 1,
@@ -168,10 +182,6 @@ query_get_status <- function(id, dev=FALSE) {
   result <- httr::content(response, type = "application/json", encoding = "UTF-8")
 
   if (httr::status_code(response) == 200) {
-    if (dev) {
-      message("id: ", id,", status: ", result['status'])
-    }
-
     return(result['status'])
   } else {
     stop(result['error'])
@@ -181,53 +191,71 @@ query_get_status <- function(id, dev=FALSE) {
 query_get_result <- function(id, dev=FALSE) {
   base <- if(dev) dev_base_url else base_url
   endpoint <- paste0(base, 'api/consulta/athena/result')
-  response <- httr::GET(endpoint, query=list(id=id, r_ver=api_version))
+  url <- httr::modify_url(endpoint, query=list(id=id, r_ver=api_version))
+  tmp <- tempfile()
+  req <- curl::curl_download(url, tmp, quiet=FALSE)
 
-  if (httr::status_code(response) == 200) {
-    result <- httr::content(response, type="text/csv", encoding = "UTF-8")
-    return(result)
-  } else {
-    result <- httr::content(response, type="application/json", encoding = "UTF-8")
-    stop(result['error'])
+  message("\nParsing downloaded csv...")
+  result <- data.table::fread(
+    file=tmp,
+    sep=",",
+    header=TRUE,
+    encoding="UTF-8",
+    showProgress=TRUE
+  )
+
+  if (!is.null(result)) {
+    names(result) <- toupper(names(result))
   }
+
+  return(result)
+}
+
+query_wait <- function(query_id, dev=FALSE) {
+  status <- "RUNNING"
+  time <- 1
+
+  while (status == "RUNNING" || status == "QUEUED") {
+    Sys.sleep(time)
+    status <- query_get_status(query_id, dev)
+    message("status: ", status, ", elapsed: ", time, "s")
+
+    if (time == 1 && (status == "RUNNING" || status == "QUEUED")) {
+      # wait a few more seconds before next checkup
+      time <- 16
+    } else {
+      time <- time + 2
+    }
+  }
+
+  return(status)
 }
 
 query <- function(params, cached=FALSE, dev=FALSE) {
   query_id = query_get_id(params, dev)
   result <- NULL
 
-  if(cached) {
-    result <- load_from_cache(query_id)
+  if (dev) {
+    message("query-id: ", query_id)
+  }
+
+  if (cached && cache_exists(query_id)) {
+    message("Reading from cache.")
+    result <- cache_read(query_id)
   }
 
   if(is.null(result) || !cached) {
-    status = "RUNNING"
-    time = 1
-    while (status == "RUNNING" || status == "QUEUED") {
-      Sys.sleep(time)
-      time <- time * 2
-
-      status <- query_get_status(query_id, dev)
-
-      # wait a few more seconds before next checkup
-      if (time == 2 && (status == "RUNNING" || status == "QUEUED")) {
-        time <- 32
-      }
-    }
+    status <- query_wait(query_id, dev)
 
     if (status == "SUCCEEDED") {
       result <- query_get_result(query_id, dev)
+
+      if(cached) {
+        cache_write(query_id, result)
+      }
     } else {
       error("The query has failed. Please, check if your parameters are valid.")
     }
-  }
-
-  if(cached) {
-    save_on_cache(query_id, result)
-  }
-
-  if (!is.null(result)) {
-    names(result) <- toupper(names(result))
   }
 
   return(result)
