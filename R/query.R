@@ -254,7 +254,7 @@ query <- function(params, cached=FALSE, dev=FALSE) {
         cache_write(query_id, result)
       }
     } else {
-      error("The query has failed. Please, check if your parameters are valid.")
+      stop("The query has failed. Please, check if your parameters are valid.")
     }
   }
 
