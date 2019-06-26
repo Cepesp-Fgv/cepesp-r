@@ -26,7 +26,8 @@ cache_read <- function(query_id) {
     sep=",",
     header=TRUE,
     encoding="UTF-8",
-    showProgress=TRUE
+    showProgress=TRUE,
+    keepLeadingZeros=TRUE
   ))
 }
 
@@ -201,7 +202,8 @@ query_get_result <- function(id, dev=FALSE) {
     sep=",",
     header=TRUE,
     encoding="UTF-8",
-    showProgress=TRUE
+    showProgress=TRUE,
+    keepLeadingZeros=TRUE
   )
 
   if (!is.null(result)) {
