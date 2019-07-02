@@ -104,6 +104,13 @@ Not all electoral contests occur in every year. Feasible requests are:
 | 2016                |   Prefeito, Vereador    | 
 | 2018                |   Presidente, Governador, Senador, Deputado Federal, Deputado Estadual    |
 
+It is possible to download multiple years in a single request, once the above mentioned match of years and positions is observed.
+
+Exemple:
+
+```{r}
+electedmayors_2012_2008 <- get_candidates(year = "2012, 2008", position = "Prefeito", only_elected = T)
+```
 
 ### Selecting Variables
 The default setting is for the function to return all the available variables (columns). To select specific variables and limit the size of the request, you can specify a list of required columns using the `columns_list` argument. The specific columns available depend on the political and regional aggregation selected so you are advised to refer to the documentation on the available columns at https://github.com/Cepesp-Fgv/tse-dados/wiki/Colunas and to the API documentation at https://github.com/Cepesp-Fgv/cepesp-rest for further details.
