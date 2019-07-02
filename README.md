@@ -104,7 +104,7 @@ Not all electoral contests occur in every year. Feasible requests are:
 | 2016                |   Prefeito, Vereador    | 
 | 2018                |   Presidente, Governador, Senador, Deputado Federal, Deputado Estadual    |
 
-It is possible to download multiple years in a single request, once the above mentioned match of years and positions is observed.
+It is possible to download **multiple years** in a single request, once the above mentioned match of years and positions is observed.
 
 Exemple:
 
