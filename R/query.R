@@ -43,7 +43,9 @@ hash_r <- function(request, extension=".gz") {
   return(paste0(folder, digest::digest(do.call(paste, c(as.list(request), sep=""))), extension))
 }
 
-build_params <- function(table, year, uf, regional_aggregation, political_aggregation = NULL, position, columns_list, government_period=NULL, default_columns=list(), name=NULL, party=NULL, candidate_number=NULL, only_elected=FALSE) {
+build_params <- function(table, year, uf, regional_aggregation, political_aggregation = NULL, position, columns_list,
+                         government_period=NULL, default_columns=list(), name=NULL, party=NULL, candidate_number=NULL,
+                         only_elected=FALSE, blank_votes=FALSE, null_votes=FALSE) {
 
   if(length(columns_list) == 0) {
     columns_list <- default_columns
@@ -70,6 +72,14 @@ build_params <- function(table, year, uf, regional_aggregation, political_aggreg
 
   if (!is.null(name) && table == "secretarios") {
     params <- append(params, list(name_filter=name))
+  }
+
+  if (blank_votes) {
+    params <- append(params, list(brancos=TRUE))
+  }
+
+  if (null_votes) {
+    params <- append(params, list(nulos=TRUE))
   }
 
   params <- add_filter(params, "NUMERO_CANDIDATO", candidate_number)

@@ -93,7 +93,9 @@
 #'                       regional_aggregation = "State",
 #'                       political_aggregation = "Party")
 #' }
-get_elections <- function(year, position, state="all", regional_aggregation="Municipality", political_aggregation="Candidate", cached=FALSE, columns_list=list(), party=NULL, candidate_number=NULL, only_elected=FALSE, dev=FALSE) {
+get_elections <- function(year, position, state="all", regional_aggregation="Municipality", political_aggregation="Candidate",
+                          cached=FALSE, columns_list=list(), party=NULL, candidate_number=NULL, only_elected=FALSE, dev=FALSE,
+                          blank_votes=FALSE, null_votes=FALSE) {
 
   regional_aggregation <- switch_regional_aggregation(regional_aggregation)
   political_aggregation <- switch_political_aggregation(political_aggregation)
@@ -117,14 +119,17 @@ get_elections <- function(year, position, state="all", regional_aggregation="Mun
       party                 = party,
       candidate_number      = candidate_number,
       default_columns       = columns(regional_aggregation, political_aggregation),
-      only_elected          = only_elected
+      only_elected          = only_elected,
+      blank_votes           = blank_votes,
+      null_votes            = null_votes
     ), cached, dev)
   )
 }
 
 #' @rdname get_elections
 #' @export
-get_votes <- function(year, position, regional_aggregation="Municipality", state="all", cached=FALSE, columns_list=list(), party=NULL, candidate_number=NULL, dev=FALSE) {
+get_votes <- function(year, position, regional_aggregation="Municipality", state="all", cached=FALSE, columns_list=list(),
+                      party=NULL, candidate_number=NULL, dev=FALSE, blank_votes=FALSE, null_votes=FALSE) {
   prev_reg <- regional_aggregation
   regional_aggregation <- switch_regional_aggregation(regional_aggregation)
   position <- switch_position(position)
@@ -143,7 +148,9 @@ get_votes <- function(year, position, regional_aggregation="Municipality", state
       columns_list          = columns_list,
       party                 = party,
       candidate_number      = candidate_number,
-      default_columns       = columns_votes_sec(regional_aggregation)
+      default_columns       = columns_votes_sec(regional_aggregation),
+      blank_votes           = blank_votes,
+      null_votes            = null_votes
     ), cached, dev)
   )
 }
