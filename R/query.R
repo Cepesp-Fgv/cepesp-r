@@ -243,9 +243,9 @@ query_wait <- function(query_id, dev=FALSE) {
   return(status)
 }
 
-query <- function(params, cached=FALSE, dev=FALSE) {
-  query_id = query_get_id(params, dev)
+query_athena <- function(params, cached, dev) {
   result <- NULL
+  query_id <- query_get_id(params, dev)
 
   if (dev) {
     message("query-id: ", query_id)
@@ -271,4 +271,35 @@ query <- function(params, cached=FALSE, dev=FALSE) {
   }
 
   return(result)
+}
+
+query_lambda <- function(params, cached, dev) {
+  endpoint <- "https://api.cepespdata.io/api/query"
+  url <- httr::modify_url(endpoint, query=params)
+  tmp <- tempfile()
+  req <- curl::curl_download(url, tmp, quiet=FALSE)
+
+  message("\nParsing downloaded csv...")
+  result <- data.table::fread(
+    file=tmp,
+    sep=",",
+    header=TRUE,
+    encoding="UTF-8",
+    showProgress=TRUE,
+    keepLeadingZeros=TRUE
+  )
+
+  if (!is.null(result)) {
+    names(result) <- toupper(names(result))
+  }
+
+  return(result)
+}
+
+query <- function(params, cached=FALSE, dev=FALSE, lambda=FALSE) {
+  if (lambda == FALSE) {
+    return(query_athena(params, cached, dev))
+  } else {
+    return(query_lambda(params, cached, dev))
+  }
 }

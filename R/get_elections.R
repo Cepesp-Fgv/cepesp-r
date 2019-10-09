@@ -95,7 +95,7 @@
 #' }
 get_elections <- function(year, position, state="all", regional_aggregation="Municipality", political_aggregation="Candidate",
                           cached=FALSE, columns_list=list(), party=NULL, candidate_number=NULL, only_elected=FALSE, dev=FALSE,
-                          blank_votes=FALSE, null_votes=FALSE) {
+                          blank_votes=FALSE, null_votes=FALSE, lambda=FALSE) {
 
   regional_aggregation <- switch_regional_aggregation(regional_aggregation)
   political_aggregation <- switch_political_aggregation(political_aggregation)
@@ -122,14 +122,14 @@ get_elections <- function(year, position, state="all", regional_aggregation="Mun
       only_elected          = only_elected,
       blank_votes           = blank_votes,
       null_votes            = null_votes
-    ), cached, dev)
+    ), cached, dev, lambda)
   )
 }
 
 #' @rdname get_elections
 #' @export
 get_votes <- function(year, position, regional_aggregation="Municipality", state="all", cached=FALSE, columns_list=list(),
-                      party=NULL, candidate_number=NULL, dev=FALSE, blank_votes=FALSE, null_votes=FALSE) {
+                      party=NULL, candidate_number=NULL, dev=FALSE, blank_votes=FALSE, null_votes=FALSE, lambda=FALSE) {
   prev_reg <- regional_aggregation
   regional_aggregation <- switch_regional_aggregation(regional_aggregation)
   position <- switch_position(position)
@@ -151,13 +151,13 @@ get_votes <- function(year, position, regional_aggregation="Municipality", state
       default_columns       = columns_votes_sec(regional_aggregation),
       blank_votes           = blank_votes,
       null_votes            = null_votes
-    ), cached, dev)
+    ), cached, dev, lambda)
   )
 }
 
 #' @rdname get_elections
 #' @export
-get_candidates <- function(year, position, cached=FALSE, columns_list=list(), party=NULL, candidate_number=NULL, only_elected=FALSE, dev=FALSE) {
+get_candidates <- function(year, position, cached=FALSE, columns_list=list(), party=NULL, candidate_number=NULL, only_elected=FALSE, dev=FALSE, lambda=FALSE) {
   position <- switch_position(position)
   return (
     query(build_params(
@@ -172,13 +172,13 @@ get_candidates <- function(year, position, cached=FALSE, columns_list=list(), pa
       candidate_number      = candidate_number,
       default_columns       = columns_candidates(),
       only_elected          = only_elected
-    ), cached, dev)
+    ), cached, dev, lambda)
   )
 }
 
 #' @rdname get_elections
 #' @export
-get_coalitions <- function(year, position, columns_list=list(), party=NULL, cached=FALSE, dev=FALSE) {
+get_coalitions <- function(year, position, columns_list=list(), party=NULL, cached=FALSE, dev=FALSE, lambda=FALSE) {
   position <- switch_position(position)
   return (
     query(build_params(
@@ -191,13 +191,13 @@ get_coalitions <- function(year, position, columns_list=list(), party=NULL, cach
       columns_list          = columns_list,
       party                 = party,
       default_columns       = columns_political_parties()
-    ), cached, dev)
+    ), cached, dev, lambda)
   )
 }
 
 #' @rdname get_assets
 #' @export
-get_assets <- function(year, state="all", columns_list=list(), cached=FALSE, dev=FALSE) {
+get_assets <- function(year, state="all", columns_list=list(), cached=FALSE, dev=FALSE, lambda=FALSE) {
   return (
     query(build_params(
       table                 = "bem_candidato",
@@ -209,13 +209,13 @@ get_assets <- function(year, state="all", columns_list=list(), cached=FALSE, dev
       columns_list          = columns_list,
       party                 = NULL,
       default_columns       = columns_bens_candidatos()
-    ), cached, dev)
+    ), cached, dev, lambda)
   )
 }
 
 #' @rdname get_secretaries
 #' @export
-get_secretaries <- function(state="all", name=NULL, period=NULL, columns_list=list(), cached=FALSE, dev=FALSE) {
+get_secretaries <- function(state="all", name=NULL, period=NULL, columns_list=list(), cached=FALSE, dev=FALSE, lambda=FALSE) {
   return (
     query(build_params(
       table                 = "secretarios",
@@ -229,13 +229,13 @@ get_secretaries <- function(state="all", name=NULL, period=NULL, columns_list=li
       columns_list          = columns_list,
       party                 = NULL,
       default_columns       = columns_secretaries()
-    ), cached, dev)
+    ), cached, dev, lambda)
   )
 }
 
 #' @rdname get_filiates
 #' @export
-get_filiates <- function(state="all", party="all", columns_list=list(), cached=FALSE, dev=FALSE) {
+get_filiates <- function(state="all", party="all", columns_list=list(), cached=FALSE, dev=FALSE, lambda=FALSE) {
   return (
     query(build_params(
       table                 = "filiados",
@@ -247,7 +247,7 @@ get_filiates <- function(state="all", party="all", columns_list=list(), cached=F
       columns_list          = columns_list,
       party                 = party,
       default_columns       = columns_filiates()
-    ), cached, dev)
+    ), cached, dev, lambda)
   )
 }
 
