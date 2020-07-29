@@ -209,7 +209,7 @@ columns <- function(regional_aggregation=5, political_aggregation=2){
       'DESCRICAO_ENDERECO',
       'DESCRICAO_BAIRRO',
       'NUM_CEP',
-      'NOME_LOCALIDADE',
+      'NOME_LOCALIDADE'
     ))
   }
 
@@ -339,7 +339,7 @@ columns_votes_sec <- function(regional_aggregation=5) {
       'DESCRICAO_ENDERECO',
       'DESCRICAO_BAIRRO',
       'NUM_CEP',
-      'NOME_LOCALIDADE',
+      'NOME_LOCALIDADE'
     ))
   }
 
