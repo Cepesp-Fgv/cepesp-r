@@ -112,7 +112,7 @@ switch_numeric <- function(number, values) {
 switch_regional_aggregation <- function(text) {
 
   if (is.numeric(text))
-    return(switch_numeric(text, c(0, 1, 2, 4, 5, 6, 7, 8, 9)))
+    return(switch_numeric(text, c(0, 1, 2, 4, 5, 6, 7, 8, 9, 10)))
 
   return(switch(text,
                 "Brazil"= 0,
@@ -129,7 +129,9 @@ switch_regional_aggregation <- function(text) {
                 "Zona"= 8,
                 "Votação Seção"= 9,
                 "Ballot Box"= 9,
-                "Electoral Section"= 9))
+                "Electoral Section"= 9,
+                "Local Votação"=10,
+                "Location"=10))
 }
 
 switch_political_aggregation <- function(text) {
