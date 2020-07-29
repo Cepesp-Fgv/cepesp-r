@@ -1,7 +1,7 @@
 Package: cepespR
 Type: Package
 Title: R API for extrating data storaged on CEPESPData
-Version: 0.1.0
+Version: 0.1.1
 Authors@R: person("CEPESP", email = "cepesp@fgv.br", role = c("cph", "cre"))
 Description: Cepesp-R is a simple package designed to assist users to access the API to Cepespdata.
 License: What license is it under?
