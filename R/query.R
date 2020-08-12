@@ -206,6 +206,9 @@ query_get_result <- function(id, dev=FALSE) {
   endpoint <- paste0(base, 'api/consulta/athena/result')
   url <- httr::modify_url(endpoint, query=list(id=id, r_ver=api_version))
   tmp <- tempfile()
+  if (dev) {
+    message(url)
+  }
   req <- curl::curl_download(url, tmp, quiet=FALSE)
 
   message("\nParsing downloaded csv...")
@@ -279,6 +282,9 @@ query_lambda <- function(params, cached, dev) {
   endpoint <- "https://api.cepespdata.io/api/query"
   url <- httr::modify_url(endpoint, query=params)
   tmp <- tempfile()
+  if (dev) {
+    message(url)
+  }
   req <- curl::curl_download(url, tmp, quiet=FALSE)
 
   message("\nParsing downloaded csv...")
