@@ -60,12 +60,6 @@ get_assets(year = 2014, state = "AC", columns_list = list('CODIGO_CARGO','NOME_C
 get_secretaries(name = 'joao', state = 'AC')
 ```
 
-7. `get_filiates` - Returns the list of filiates by party and state (status corresponding to the last update in November 2018). `state` and/or `party` must be specified as arguments.
-
-``` {.r}
-get_filiates(state = 'SP', party = 'PT')
-```
-
 ### Parameters
 
 Check below the available options for each required parameter:
