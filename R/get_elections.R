@@ -233,25 +233,6 @@ get_secretaries <- function(state="all", name=NULL, period=NULL, columns_list=li
   )
 }
 
-#' @rdname get_filiates
-#' @export
-get_filiates <- function(state="all", party="all", columns_list=list(), cached=FALSE, dev=FALSE, lambda=FALSE) {
-  return (
-    query(build_params(
-      table                 = "filiados",
-      year                  = 0,
-      uf                    = state,
-      regional_aggregation  = 0,
-      political_aggregation = 0,
-      position              = 0,
-      columns_list          = columns_list,
-      party                 = party,
-      default_columns       = columns_filiates()
-    ), cached, dev, lambda)
-  )
-}
-
-
 #' @rdname get_careers
 #' @export
 get_careers <- function(NOME_CANDIDATO=NULL, NOME_URNA_CANDIDATO=NULL) {
