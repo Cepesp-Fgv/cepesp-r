@@ -7,20 +7,59 @@
 \alias{get_coalitions}
 \title{Extract data from CEPESPData}
 \usage{
-get_elections(year, position, state = "all",
+get_elections(
+  year,
+  position,
+  state = "all",
   regional_aggregation = "Municipality",
-  political_aggregation = "Candidate", cached = FALSE,
-  columns_list = list(), party = NULL, candidate_number = NULL)
+  political_aggregation = "Candidate",
+  cached = FALSE,
+  columns_list = list(),
+  party = NULL,
+  candidate_number = NULL,
+  only_elected = FALSE,
+  dev = FALSE,
+  blank_votes = FALSE,
+  null_votes = FALSE,
+  lambda = FALSE
+)
 
-get_votes(year, position, regional_aggregation = "Municipality",
-  state = "all", cached = FALSE, columns_list = list(), party = NULL,
-  candidate_number = NULL)
+get_votes(
+  year,
+  position,
+  regional_aggregation = "Municipality",
+  state = "all",
+  cached = FALSE,
+  columns_list = list(),
+  party = NULL,
+  candidate_number = NULL,
+  dev = FALSE,
+  blank_votes = FALSE,
+  null_votes = FALSE,
+  lambda = FALSE
+)
 
-get_candidates(year, position, cached = FALSE, columns_list = list(),
-  party = NULL, candidate_number = NULL)
+get_candidates(
+  year,
+  position,
+  cached = FALSE,
+  columns_list = list(),
+  party = NULL,
+  candidate_number = NULL,
+  only_elected = FALSE,
+  dev = FALSE,
+  lambda = FALSE
+)
 
-get_coalitions(year, position, cached = FALSE, columns_list = list(),
-  party = NULL)
+get_coalitions(
+  year,
+  position,
+  columns_list = list(),
+  party = NULL,
+  cached = FALSE,
+  dev = FALSE,
+  lambda = FALSE
+)
 }
 \arguments{
 \item{year}{a integer scalar}
