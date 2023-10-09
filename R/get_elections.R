@@ -1,3 +1,4 @@
+
 #' Extract data from CEPESPData
 #'
 #' @description
@@ -18,7 +19,7 @@
 #' * \code{get_coalitions()} extracts details about the parties that constitute each
 #'     coalition that competed in each election.
 #'
-#' @param year a integer scalar
+#' @param year a integer scalar.
 #'
 #' @param state character vector. Default value is "all".
 #'
@@ -26,11 +27,11 @@
 #'
 #' @param political_aggregation character with desired political aggregation.
 #'
-#' @param position a character or intecer scalar with the correpondend political contest position.
+#' @param position a character or integer scalar with the correpondend political contest position.
 #'
 #' @param cached a logical scalar. If TRUE, \code{cepespdata} will store the dataset inside your computes.
 #'  Thus, if the same request is made, the data will be immediately available. Note that if you use
-#'  this feature the app will create a sub-directory /static/cache of your working directory to store
+#'  this feature the app will create a sub-directory /static/cache on your working directory to store
 #'  the downloaded data. If you are planning to use the functions several times, you should considers setting the parameter to TRUE.
 #'
 #' @param columns_list a list with the columns needed. If supplied, \code{cepespdata} will return only the
@@ -62,7 +63,7 @@
 #'
 #' @section Cache:
 #'
-#' Each time a request is made to the cepesp-R API, the specific dataset is constructed
+#' Each time a request is made to the cepespR API, the specific dataset is constructed
 #' and downloaded to your local system. To limit processing and bandwidth utilization,
 #' the cepespR package includes the option to cache your requests so that they are stored
 #' locally and immediately available when that request is repeated.
@@ -76,7 +77,7 @@
 #' @examples
 #'
 #' \dontrun{
-#' #Basic use of get_* functions.
+#' # Basic use of get_* functions.
 #'
 #' data <- get_elections(year = 2014, position = "Federal Deputy")
 #'
@@ -86,28 +87,41 @@
 #'
 #' data <- get_coalitions(year = 2014, position = "Federal Deputy")
 #'
-#' #If needed, it is possible to change reginal and political aggregation
+#' # If needed, it is possible to change regional and political aggregation
 #'
 #' data <- get_elections(year = 2014,
 #'                       position = "Federal Deputy",
 #'                       regional_aggregation = "State",
 #'                       political_aggregation = "Party")
 #' }
-get_elections <- function(year, position, state="all", regional_aggregation="Municipality", political_aggregation="Candidate",
-                          cached=FALSE, columns_list=list(), party=NULL, candidate_number=NULL, only_elected=FALSE, dev=FALSE,
-                          blank_votes=FALSE, null_votes=FALSE, lambda=FALSE) {
+
+#' @rdname get_elections
+#' @export
+
+get_elections <- function(year, position, state = "all", 
+                          regional_aggregation = "Municipality", 
+                          political_aggregation = "Candidate",
+                          cached = FALSE, columns_list = list(), 
+                          party = NULL, candidate_number = NULL, 
+                          only_elected = FALSE, dev = FALSE,
+                          blank_votes = FALSE, null_votes = FALSE, lambda = FALSE) {
 
   regional_aggregation <- switch_regional_aggregation(regional_aggregation)
+  
   political_aggregation <- switch_political_aggregation(political_aggregation)
+  
   position <- switch_position(position)
 
-  if (is.null(political_aggregation))
+  if(is.null(political_aggregation))
+    
     stop('Unknown political_aggregation. Check if there is any mispelling error.')
 
-  if (is.null(regional_aggregation))
+  if(is.null(regional_aggregation))
+    
     stop('Unknown regional_aggregation. Check if there is any mispelling error.')
 
-  return (
+  return(
+    
     query(build_params(
       table                 = "tse",
       year                  = year,
@@ -122,22 +136,31 @@ get_elections <- function(year, position, state="all", regional_aggregation="Mun
       only_elected          = only_elected,
       blank_votes           = blank_votes,
       null_votes            = null_votes
-    ), cached, dev, lambda)
+    
+      ), cached, dev, lambda)
   )
 }
 
-#' @rdname get_elections
+#' @rdname get_votes
 #' @export
-get_votes <- function(year, position, regional_aggregation="Municipality", state="all", cached=FALSE, columns_list=list(),
-                      party=NULL, candidate_number=NULL, dev=FALSE, blank_votes=FALSE, null_votes=FALSE, lambda=FALSE) {
+
+get_votes <- function(year, position, regional_aggregation = "Municipality", 
+                      state = "all", cached = FALSE, columns_list = list(),
+                      party = NULL, candidate_number = NULL, dev = FALSE, 
+                      blank_votes = FALSE, null_votes = FALSE, lambda = FALSE) {
+  
   prev_reg <- regional_aggregation
+  
   regional_aggregation <- switch_regional_aggregation(regional_aggregation)
+  
   position <- switch_position(position)
 
-  if (is.null(regional_aggregation))
+  if(is.null(regional_aggregation))
+    
     stop('Unknown regional_aggregation. Check if there is any mispelling error.')
 
-  return (
+  return(
+    
     query(build_params(
       table                 = "votos",
       year                  = year,
@@ -151,15 +174,23 @@ get_votes <- function(year, position, regional_aggregation="Municipality", state
       default_columns       = columns_votes_sec(regional_aggregation),
       blank_votes           = blank_votes,
       null_votes            = null_votes
-    ), cached, dev, lambda)
+    
+      ), cached, dev, lambda)
   )
 }
 
-#' @rdname get_elections
+#' @rdname get_candidates
 #' @export
-get_candidates <- function(year, position, cached=FALSE, columns_list=list(), party=NULL, candidate_number=NULL, only_elected=FALSE, dev=FALSE, lambda=FALSE) {
+
+get_candidates <- function(year, position, cached = FALSE, 
+                           columns_list = list(), party = NULL, 
+                           candidate_number = NULL, only_elected = FALSE, 
+                           dev = FALSE, lambda = FALSE) {
+  
   position <- switch_position(position)
-  return (
+  
+  return(
+    
     query(build_params(
       table                 = "candidatos",
       year                  = year,
@@ -172,15 +203,22 @@ get_candidates <- function(year, position, cached=FALSE, columns_list=list(), pa
       candidate_number      = candidate_number,
       default_columns       = columns_candidates(),
       only_elected          = only_elected
-    ), cached, dev, lambda)
+    
+      ), cached, dev, lambda)
   )
 }
 
-#' @rdname get_elections
+#' @rdname get_coalitions
 #' @export
-get_coalitions <- function(year, position, columns_list=list(), party=NULL, cached=FALSE, dev=FALSE, lambda=FALSE) {
+
+get_coalitions <- function(year, position, columns_list = list(), 
+                           party = NULL, cached = FALSE, 
+                           dev = FALSE, lambda = FALSE) {
+  
   position <- switch_position(position)
+  
   return (
+    
     query(build_params(
       table                 = "legendas",
       year                  = year,
@@ -191,14 +229,20 @@ get_coalitions <- function(year, position, columns_list=list(), party=NULL, cach
       columns_list          = columns_list,
       party                 = party,
       default_columns       = columns_political_parties()
-    ), cached, dev, lambda)
+    
+      ), cached, dev, lambda)
   )
 }
 
 #' @rdname get_assets
 #' @export
-get_assets <- function(year, state="all", columns_list=list(), cached=FALSE, dev=FALSE, lambda=FALSE) {
-  return (
+
+get_assets <- function(year, state = "all", 
+                       columns_list = list(), 
+                       cached = FALSE, 
+                       dev = FALSE, lambda = FALSE) {
+  
+  return(
     query(build_params(
       table                 = "bem_candidato",
       year                  = year,
@@ -209,14 +253,21 @@ get_assets <- function(year, state="all", columns_list=list(), cached=FALSE, dev
       columns_list          = columns_list,
       party                 = NULL,
       default_columns       = columns_bens_candidatos()
-    ), cached, dev, lambda)
+  
+        ), cached, dev, lambda)
   )
 }
 
 #' @rdname get_secretaries
 #' @export
-get_secretaries <- function(state="all", name=NULL, period=NULL, columns_list=list(), cached=FALSE, dev=FALSE, lambda=FALSE) {
-  return (
+
+get_secretaries <- function(state = "all", name = NULL, 
+                            period = NULL, columns_list = list(), 
+                            cached = FALSE, dev = FALSE, 
+                            lambda = FALSE) {
+  
+  return(
+    
     query(build_params(
       table                 = "secretarios",
       year                  = 0,
@@ -229,28 +280,37 @@ get_secretaries <- function(state="all", name=NULL, period=NULL, columns_list=li
       columns_list          = columns_list,
       party                 = NULL,
       default_columns       = columns_secretaries()
-    ), cached, dev, lambda)
+    
+      ), cached, dev, lambda)
   )
 }
 
 #' @rdname get_careers
 #' @export
-get_careers <- function(NOME_CANDIDATO=NULL, NOME_URNA_CANDIDATO=NULL) {
-  url = httr::modify_url("https://cepesp-app.herokuapp.com/api/dim/candidato", query= list(
-    NOME_CANDIDATO = NOME_CANDIDATO,
-    NOME_URNA_CANDIDATO = NOME_URNA_CANDIDATO
-  ))
+
+get_careers <- function(NOME_CANDIDATO = NULL, 
+                        NOME_URNA_CANDIDATO = NULL) {
+  
+  url = httr::modify_url("https://cepesp-app.herokuapp.com/api/dim/candidato", 
+                         query = list(
+                           NOME_CANDIDATO = NOME_CANDIDATO,
+                           NOME_URNA_CANDIDATO = NOME_URNA_CANDIDATO
+                           ))
 
   return(jsonlite::fromJSON(url)[['data']])
 }
 
 #' @rdname get_careers_elections
 #' @export
-get_careers_elections <- function(NUM_TITULO_ELEITORAL_CANDIDATO=NULL, ID_DIM_CANDIDATO=NULL) {
-  url = httr::modify_url("https://cepesp-app.herokuapp.com/api/candidatos", query= list(
-    NUM_TITULO_ELEITORAL_CANDIDATO = NUM_TITULO_ELEITORAL_CANDIDATO,
-    ID_DIM_CANDIDATO = ID_DIM_CANDIDATO
-  ))
+
+get_careers_elections <- function(NUM_TITULO_ELEITORAL_CANDIDATO = NULL, 
+                                  ID_DIM_CANDIDATO = NULL) {
+  
+  url = httr::modify_url("https://cepesp-app.herokuapp.com/api/candidatos", 
+                         query = list(NUM_TITULO_ELEITORAL_CANDIDATO = NUM_TITULO_ELEITORAL_CANDIDATO,
+                                      ID_DIM_CANDIDATO = ID_DIM_CANDIDATO
+                                      ))
 
   return(jsonlite::fromJSON(url)[['data']])
+  
 }

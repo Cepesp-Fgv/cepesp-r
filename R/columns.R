@@ -1,11 +1,15 @@
-#Colunas Votação Seção
-columns <- function(regional_aggregation=5, political_aggregation=2){
+
+# 1. get_elections() ------------------------------------------------------
+
+columns <- function(regional_aggregation = 5, 
+                    political_aggregation = 2){
 
   columns = list()
 
-  if (political_aggregation==1) {
+  if(political_aggregation == 1) {
 
     columns <- append(columns, list(
+      
       'ANO_ELEICAO',
       'NUM_TURNO',
       'DESCRICAO_ELEICAO',
@@ -16,11 +20,13 @@ columns <- function(regional_aggregation=5, political_aggregation=2){
       'SIGLA_PARTIDO',
       'NOME_PARTIDO',
       'QTDE_VOTOS'
+      
     ))
 
-  } else if(political_aggregation==2) {
+  } else if(political_aggregation == 2) {
 
     columns <- append(columns, list(
+      
       'ANO_ELEICAO',
       'NUM_TURNO',
       'DESCRICAO_ELEICAO',
@@ -67,11 +73,13 @@ columns <- function(regional_aggregation=5, political_aggregation=2){
       'NOME_COLIGACAO',
       'COMPOSICAO_COLIGACAO',
       'QTDE_VOTOS'
-    ))
+    
+      ))
 
-  } else if(political_aggregation==3) {
+  } else if(political_aggregation == 3) {
 
     columns <- append(columns, list(
+      
       'ANO_ELEICAO',
       'NUM_TURNO',
       'DESCRICAO_ELEICAO',
@@ -82,11 +90,13 @@ columns <- function(regional_aggregation=5, political_aggregation=2){
       'NOME_COLIGACAO',
       'COMPOSICAO_COLIGACAO',
       'SEQUENCIA_COLIGACAO'
-    ))
+    
+      ))
 
   } else {
 
     columns <- append(columns, list(
+      
       'ANO_ELEICAO',
       'NUM_TURNO',
       'DESCRICAO_ELEICAO',
@@ -100,30 +110,44 @@ columns <- function(regional_aggregation=5, political_aggregation=2){
       'QT_VOTOS_NULOS',
       'QT_VOTOS_LEGENDA',
       'QT_VOTOS_ANULADOS_APU_SEP'
-    ))
+    
+      ))
   }
 
 
-  if (regional_aggregation==1) {
-    columns <- c(columns, list('CODIGO_MACRO', 'NOME_MACRO'))
-  } else if (regional_aggregation==2) {
+  if(regional_aggregation == 1) {
+    
+    columns <- c(columns, list('CODIGO_MACRO', 
+                               'NOME_MACRO'))
+  
+  } else if(regional_aggregation == 2) {
+    
     columns <- c(columns, list(
+      
       'CODIGO_MACRO',
       'NOME_MACRO',
       'UF',
       'NOME_UF'
-    ))
-  } else if(regional_aggregation==4) {
+    
+      ))
+      
+  } else if(regional_aggregation == 4) {
+    
     columns <- c(columns, list(
+      
       'CODIGO_MACRO',
       'NOME_MACRO',
       'UF',
       'NOME_UF',
       'CODIGO_MESO',
       'NOME_MESO'
-    ))
-  } else if(regional_aggregation==5) {
+    
+      ))
+  
+  } else if(regional_aggregation == 5) {
+    
     columns <- append(columns, list(
+    
       'CODIGO_MACRO',
       'NOME_MACRO',
       'UF',
@@ -132,9 +156,13 @@ columns <- function(regional_aggregation=5, political_aggregation=2){
       'NOME_MESO',
       'CODIGO_MICRO',
       'NOME_MICRO'
-    ))
+    
+      ))
+    
   } else if(regional_aggregation == 6) {
+    
     columns <- c(columns, list(
+    
       'CODIGO_MACRO',
       'NOME_MACRO',
       'UF',
@@ -146,9 +174,13 @@ columns <- function(regional_aggregation=5, political_aggregation=2){
       'COD_MUN_TSE',
       'COD_MUN_IBGE',
       'NOME_MUNICIPIO'
-    ))
-  } else if(regional_aggregation==7) {
+    
+      ))
+    
+  } else if(regional_aggregation == 7) {
+    
     columns <- c(columns, list(
+    
       'CODIGO_MACRO',
       'NOME_MACRO',
       'UF',
@@ -161,9 +193,13 @@ columns <- function(regional_aggregation=5, political_aggregation=2){
       'COD_MUN_IBGE',
       'NOME_MUNICIPIO',
       'NUM_ZONA'
-    ))
-  } else if (regional_aggregation==8) {
+    
+      ))
+    
+  } else if(regional_aggregation == 8) {
+    
     columns <- append(columns, list(
+     
       'CODIGO_MACRO',
       'NOME_MACRO',
       'UF',
@@ -173,9 +209,13 @@ columns <- function(regional_aggregation=5, political_aggregation=2){
       'CODIGO_MICRO',
       'NOME_MICRO',
       'NUM_ZONA'
-    ))
-  } else if (regional_aggregation==9) {
+    
+      ))
+    
+  } else if(regional_aggregation == 9) {
+    
     columns <- append(columns, list(
+    
       'CODIGO_MACRO',
       'NOME_MACRO',
       'UF',
@@ -189,9 +229,13 @@ columns <- function(regional_aggregation=5, political_aggregation=2){
       'NOME_MUNICIPIO',
       'NUM_ZONA',
       'NUM_SECAO'
-    ))
-  } else if (regional_aggregation==10) {
+    
+      ))
+    
+  } else if(regional_aggregation == 10) {
+    
     columns <- append(columns, list(
+    
       'NUM_ZONA',
       'CODIGO_MICRO',
       'NOME_MICRO',
@@ -210,17 +254,20 @@ columns <- function(regional_aggregation=5, political_aggregation=2){
       'DESCRICAO_BAIRRO',
       'NUM_CEP',
       'NOME_LOCALIDADE'
-    ))
+    
+      ))
   }
 
   return(columns)
-}
 
+  }
 
-#Colunas Votação Seção
-columns_votes_sec <- function(regional_aggregation=5) {
+# 2. get_votes() ----------------------------------------------------------
+
+columns_votes_sec <- function(regional_aggregation = 5) {
 
   columns = list(
+
     'ANO_ELEICAO',
     'SIGLA_UE',
     'NUM_TURNO',
@@ -229,31 +276,46 @@ columns_votes_sec <- function(regional_aggregation=5) {
     'DESCRICAO_CARGO',
     'NUMERO_CANDIDATO',
     'QTDE_VOTOS'
-  )
+ 
+     )
 
-  if (regional_aggregation==1) {
+  if(regional_aggregation == 1) {
+    
     columns <- append(columns, list(
+      
       'CODIGO_MACRO',
       'NOME_MACRO'
-    ))
-  } else if (regional_aggregation==2) {
+    
+      ))
+    
+  } else if(regional_aggregation == 2) {
+    
     columns <- append(columns, list(
+      
       'CODIGO_MACRO',
       'NOME_MACRO',
       'UF',
       'NOME_UF'
-    ))
-  } else if(regional_aggregation==4) {
+    
+      ))
+    
+  } else if(regional_aggregation == 4) {
+    
     columns <- append(columns, list(
+      
       'CODIGO_MACRO',
       'NOME_MACRO',
       'UF',
       'NOME_UF',
       'CODIGO_MESO',
       'NOME_MESO'
-    ))
-  } else if(regional_aggregation==5) {
+    
+      ))
+    
+  } else if(regional_aggregation == 5) {
+    
     columns <- append(columns, list(
+      
       'CODIGO_MACRO',
       'NOME_MACRO',
       'UF',
@@ -262,9 +324,13 @@ columns_votes_sec <- function(regional_aggregation=5) {
       'NOME_MESO',
       'CODIGO_MICRO',
       'NOME_MICRO'
-    ))
-  } else if(regional_aggregation==6) {
+    
+      ))
+  
+    } else if(regional_aggregation == 6) {
+      
     columns <- append(columns, list(
+      
       'CODIGO_MACRO',
       'NOME_MACRO',
       'UF',
@@ -276,9 +342,13 @@ columns_votes_sec <- function(regional_aggregation=5) {
       'COD_MUN_TSE',
       'COD_MUN_IBGE',
       'NOME_MUNICIPIO'
-    ))
-  } else if(regional_aggregation==7) {
+    
+      ))
+    
+  } else if(regional_aggregation == 7) {
+    
     columns <- append(columns, list(
+    
       'CODIGO_MACRO',
       'NOME_MACRO',
       'UF',
@@ -291,9 +361,13 @@ columns_votes_sec <- function(regional_aggregation=5) {
       'COD_MUN_IBGE',
       'NOME_MUNICIPIO',
       'NUM_ZONA'
+      
     ))
-  } else if(regional_aggregation==8) {
+    
+  } else if(regional_aggregation == 8) {
+    
     columns <- append(columns, list(
+      
       'CODIGO_MACRO',
       'NOME_MACRO',
       'UF',
@@ -303,9 +377,13 @@ columns_votes_sec <- function(regional_aggregation=5) {
       'CODIGO_MICRO',
       'NOME_MICRO',
       'NUM_ZONA'
-    ))
-  } else if (regional_aggregation==9) {
+    
+      ))
+    
+  } else if(regional_aggregation == 9) {
+    
     columns <- append(columns, list(
+      
       'CODIGO_MACRO',
       'NOME_MACRO',
       'UF',
@@ -319,9 +397,13 @@ columns_votes_sec <- function(regional_aggregation=5) {
       'NOME_MUNICIPIO',
       'NUM_ZONA',
       'NUM_SECAO'
-    ))
-  } else if (regional_aggregation==10) {
+    
+      ))
+    
+  } else if(regional_aggregation == 10) {
+    
     columns <- append(columns, list(
+      
       'NUM_ZONA',
       'CODIGO_MICRO',
       'NOME_MICRO',
@@ -340,16 +422,20 @@ columns_votes_sec <- function(regional_aggregation=5) {
       'DESCRICAO_BAIRRO',
       'NUM_CEP',
       'NOME_LOCALIDADE'
+      
     ))
   }
 
   return(columns)
-}
 
-#Colunas Candidatos
+  }
+
+# 3. get_candidates() -----------------------------------------------------
+
 columns_candidates <- function() {
 
   return(list(
+    
     'DATA_GERACAO',
     'HORA_GERACAO',
     'ANO_ELEICAO',
@@ -384,6 +470,8 @@ columns_candidates <- function() {
     'DESCRICAO_GRAU_INSTRUCAO',
     'CODIGO_ESTADO_CIVIL',
     'DESCRICAO_ESTADO_CIVIL',
+    'CODIGO_COR_RACA',
+    'DESCRICAO_COR_RACA',
     'CODIGO_NACIONALIDADE',
     'DESCRICAO_NACIONALIDADE',
     'SIGLA_UF_NASCIMENTO',
@@ -392,14 +480,17 @@ columns_candidates <- function() {
     'DESPESA_MAX_CAMPANHA',
     'COD_SIT_TOT_TURNO',
     'DESC_SIT_TOT_TURNO'
-  ))
+  
+    ))
 
 }
 
-#Colunas Legendas
+# 4. get_coalitions() -----------------------------------------------------
+
 columns_political_parties <- function() {
 
   return(list(
+    
     'DATA_GERACAO',
     'HORA_GERACAO',
     'ANO_ELEICAO',
@@ -417,14 +508,17 @@ columns_political_parties <- function() {
     'NOME_COLIGACAO',
     'COMPOSICAO_COLIGACAO',
     'SEQUENCIA_COLIGACAO'
-  ))
+  
+    ))
 
 }
 
-#Colunas Bens Candidatos
+# 5. get_assets() ---------------------------------------------------------
+
 columns_bens_candidatos <- function() {
 
   return(list(
+    
     'DATA_GERACAO',
     'HORA_GERACAO',
     'ANO_ELEICAO',
@@ -475,13 +569,17 @@ columns_bens_candidatos <- function() {
     'NOME_MUNICIPIO_NASCIMENTO',
     'DESPESA_MAX_CAMPANHA',
     'EMAIL_CANDIDATO'
-  ))
+
+      ))
 
 }
+
+# 6. get_secretaries() ----------------------------------------------------
 
 columns_secretaries <- function() {
 
   return(list(
+    
     'STATUS',
     'NOME_SECRETARIO',
     'RG',
@@ -519,6 +617,7 @@ columns_secretaries <- function() {
     'NOME_MUNICIPIO',
     'RACA_RAIS',
     'DATA_NASCIMENTO'
-  ))
+  
+    ))
 
 }

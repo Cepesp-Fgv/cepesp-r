@@ -153,7 +153,7 @@ data <- get_candidates(year = 2014, position = "Federal Deputy")
 
 data <- get_coalitions(year = 2014, position = "Federal Deputy")
 
-#If needed, it is possible to change reginal and political aggregation
+#If needed, it is possible to change regional and political aggregation
 
 data <- get_elections(year = 2014,
                       position = "Federal Deputy",
